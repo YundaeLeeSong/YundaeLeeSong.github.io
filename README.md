@@ -2,6 +2,11 @@
 
 Live site: https://yundaeleesong.github.io/
 
+Live site: https://yundaeleesong.github.io/sample_jslawgroup/index.html
+
+
+
+
 This repository hosts the GitHub Pages site for Yundae Lee Song (formerly Jaehoon Song). The site is used to publish PDF proofs of works and related documentation.
 
 ## Purpose
