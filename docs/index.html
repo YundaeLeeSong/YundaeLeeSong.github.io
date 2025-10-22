@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>PDFs in this directory</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 24px; max-width: 800px; margin: auto; }
+        h1 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        #status { color: #555; margin-bottom: 12px; }
+        ul { padding-left: 1.25rem; }
+        li { margin: 6px 0; }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        button { margin-left: 8px; }
+    </style>
+</head>
+<body>
+    <h1>PDF files in this directory</h1>
+    <div id="status">Scanning...</div>
+    <div>
+        <button id="refresh">Refresh</button>
+    </div>
+    <ul id="pdf-list" aria-live="polite"></ul>
+
+    <script>
+        // Lists .pdf links by fetching the current directory URL and parsing returned HTML.
+        // Works when the server returns a directory listing (Apache/IIS/NGINX autoindex).
+        // Fallback: simple regex scan of response text to find hrefs ending with .pdf.
+        async function listPdfs() {
+            const status = document.getElementById('status');
+            const list = document.getElementById('pdf-list');
+            list.innerHTML = '';
+            status.textContent = 'Scanning directory...';
+
+            try {
+                const dirUrl = new URL('.', location).href; // ensures trailing slash
+                const res = await fetch(dirUrl, { cache: 'no-store' });
+                if (!res.ok) throw new Error('Fetch failed: ' + res.status);
+
+                const text = await res.text();
+
+                // Try to parse as HTML and find anchor tags
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const anchors = Array.from(doc.querySelectorAll('a[href]'));
+
+                // collect unique pdf links
+                const links = new Map();
+
+                for (const a of anchors) {
+                    let href = a.getAttribute('href').trim();
+                    // ignore parent dir links
+                    if (!href || href === '../' || href === '/') continue;
+                    // consider only .pdf endings (case-insensitive)
+                    if (href.match(/\.pdf(\?|#|$)/i)) {
+                        try {
+                            const abs = new URL(href, dirUrl).href;
+                            links.set(abs, a.textContent.trim() || decodeURIComponent(href));
+                        } catch (e) { /* ignore invalid URLs */ }
+                    }
+                }
+
+                // Fallback: if none found via DOM, do regex scan for href="...pdf"
+                if (links.size === 0) {
+                    const regex = /href\s*=\s*["']([^"']+?\.pdf(?:\?[^"']*)?(?:#[^"']*)?)["']/ig;
+                    let m;
+                    while ((m = regex.exec(text)) !== null) {
+                        try {
+                            const abs = new URL(m[1], dirUrl).href;
+                            links.set(abs, decodeURIComponent(m[1]));
+                        } catch (e) {}
+                    }
+                }
+
+                if (links.size === 0) {
+                    status.textContent = 'No PDF files found in this directory.';
+                    return;
+                }
+
+                // populate list
+                for (const [href, label] of links) {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = href;
+                    a.textContent = label.replace(/\/$/, '');
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    li.appendChild(a);
+                    list.appendChild(li);
+                }
+
+                status.textContent = `${links.size} PDF file(s) found.`;
+            } catch (err) {
+                status.textContent = 'Could not list files. See console for details.';
+                console.error('Error listing PDFs:', err);
+            }
+        }
+
+        document.getElementById('refresh').addEventListener('click', listPdfs);
+        window.addEventListener('DOMContentLoaded', listPdfs);
+    </script>
+</body>
+</html>
