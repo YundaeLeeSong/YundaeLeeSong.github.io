@@ -1,177 +1,129 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>PDFs in this directory (recursive)</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Documents</title>
     <style>
-        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 24px; max-width: 900px; margin: auto; }
-        h1 { font-size: 1.25rem; margin-bottom: 0.5rem; }
-        #status { color: #555; margin-bottom: 12px; }
-        ul { padding-left: 1.25rem; }
-        li { margin: 6px 0; word-break: break-all; }
-        a { color: #0366d6; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        button { margin-left: 8px; }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .pdf-list {
+            list-style: none;
+            padding: 0;
+        }
+        .pdf-item {
+            background-color: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            transition: background-color 0.3s;
+        }
+        .pdf-item:hover {
+            background-color: #e9ecef;
+        }
+        .pdf-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            display: block;
+        }
+        .pdf-link:hover {
+            color: #0056b3;
+        }
+        .pdf-info {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #dc3545;
+            text-align: center;
+            background-color: #f8d7da;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
-    <h1>PDF files in this directory (recursive)</h1>
-    <div id="status">Scanning...</div>
-    <div>
-        <button id="refresh">Refresh</button>
+    <div class="container">
+        <h1>📄 PDF Documents</h1>
+        <div id="content">
+            <div class="loading">Loading PDF files...</div>
+        </div>
     </div>
-    <ul id="pdf-list" aria-live="polite"></ul>
 
     <script>
-        // Recursively crawl directory listings returned by the server (autoindex)
-        // and collect .pdf files relative to this index.html file.
-        (function () {
-            const statusEl = document.getElementById('status');
-            const listEl = document.getElementById('pdf-list');
-
-            // base url and base pathname (ensures trailing slash)
-            const baseUrl = new URL('.', location).href;
-            const basePath = new URL(baseUrl).pathname;
-
-            // safety limits
-            const MAX_PAGES = 400;
-            let pagesVisited = 0;
-
-            async function listPdfsRecursive() {
-                listEl.innerHTML = '';
-                statusEl.textContent = 'Scanning directories...';
-                pagesVisited = 0;
-
-                const visitedDirs = new Set();
-                const pdfMap = new Map(); // key = absolute href, value = relative path label
-
-                try {
-                    await crawlDir(baseUrl, visitedDirs, pdfMap);
-
-                    if (pdfMap.size === 0) {
-                        statusEl.textContent = 'No PDF files found in this directory (recursive).';
-                        return;
-                    }
-
-                    // sort by relative path
-                    const items = Array.from(pdfMap.entries()).sort((a, b) => {
-                        const A = a[1].toLowerCase(), B = b[1].toLowerCase();
-                        return A < B ? -1 : A > B ? 1 : 0;
-                    });
-
-                    for (const [href, relPath] of items) {
-                        const li = document.createElement('li');
-                        const a = document.createElement('a');
-                        a.href = href;
-                        a.textContent = relPath;
-                        a.target = '_blank';
-                        a.rel = 'noopener noreferrer';
-                        li.appendChild(a);
-                        listEl.appendChild(li);
-                    }
-
-                    statusEl.textContent = `${items.length} PDF file(s) found.`;
-                } catch (err) {
-                    statusEl.textContent = 'Could not list files. See console for details.';
-                    console.error('Error listing PDFs recursively:', err);
-                }
+        // Load PDF files directly
+        function loadPDFs() {
+            const contentDiv = document.getElementById('content');
+            
+            // List of PDF files in the same directory
+            const pdfFiles = [
+                '1810-membership-PhiThetaKappa.pdf',
+                '1911-HonorsList.pdf',
+                '2104-membership-NTHS.pdf',
+                '2105-GraduateAward-ComputerScience.pdf',
+                '2105-GraduateAward-JavaProgrammer.pdf',
+                '2105-membership-Ambassador.pdf',
+                '2105-MeritAward.pdf'
+            ];
+            
+            if (pdfFiles.length === 0) {
+                contentDiv.innerHTML = '<div class="error">No PDF files found.</div>';
+                return;
             }
-
-            async function crawlDir(dirUrl, visitedDirs, pdfMap) {
-                if (pagesVisited++ > MAX_PAGES) return;
-                let dirPath;
-                try {
-                    dirPath = new URL(dirUrl, location).pathname;
-                } catch (e) {
-                    return;
-                }
-                if (visitedDirs.has(dirPath)) return;
-                visitedDirs.add(dirPath);
-
-                let res;
-                try {
-                    res = await fetch(dirUrl, { cache: 'no-store' });
-                    if (!res.ok) return;
-                } catch (e) {
-                    return;
-                }
-
-                const text = await res.text();
-
-                // parse HTML anchors if possible
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(text, 'text/html');
-                let anchors = Array.from(doc.querySelectorAll('a[href]'));
-
-                // fallback to regex if no anchor elements found
-                if (anchors.length === 0) {
-                    const regex = /href\s*=\s*["']([^"']+)["']/ig;
-                    let m;
-                    anchors = [];
-                    while ((m = regex.exec(text)) !== null) {
-                        const fake = { getAttribute: () => m[1], textContent: m[1] };
-                        anchors.push(fake);
-                    }
-                }
-
-                for (const a of anchors) {
-                    let rawHref;
-                    try {
-                        rawHref = a.getAttribute('href').trim();
-                    } catch (e) {
-                        continue;
-                    }
-                    if (!rawHref) continue;
-                    // skip parent links
-                    if (rawHref === '../' || rawHref === '/' || rawHref === '#') continue;
-
-                    let abs;
-                    try {
-                        abs = new URL(rawHref, dirUrl);
-                    } catch (e) {
-                        continue;
-                    }
-
-                    // ignore other origins
-                    if (abs.origin !== location.origin) continue;
-
-                    // only consider links within the base path (won't climb above basePath)
-                    if (!abs.pathname.startsWith(basePath)) continue;
-
-                    // treat directories as those ending with '/' or with no extension
-                    const pathname = abs.pathname;
-                    const lower = pathname.toLowerCase();
-                    const isPdf = lower.match(/\.pdf(\?|#|$)/);
-                    const looksLikeDir = rawHref.endsWith('/') || pathname.endsWith('/');
-
-                    if (isPdf) {
-                        // build a relative path label (strip basePath)
-                        let rel = decodeURIComponent(pathname.slice(basePath.length || 0));
-                        // include search and hash if present
-                        if (abs.search) rel += abs.search;
-                        if (abs.hash) rel += abs.hash;
-                        rel = rel.replace(/^\/+/, ''); // remove any leading slash
-                        // avoid duplicates, prefer the first discovered absolute href
-                        pdfMap.set(abs.href, rel);
-                    } else if (looksLikeDir) {
-                        // recurse into subdirectory
-                        await crawlDir(abs.href, visitedDirs, pdfMap);
-                    } else {
-                        // Could be a directory without trailing slash that the server redirects to.
-                        // Try a quick heuristic: if no extension present, treat as directory.
-                        const lastSegment = pathname.split('/').pop() || '';
-                        if (lastSegment && lastSegment.indexOf('.') === -1) {
-                            // try to fetch and see if it returns an index (server may redirect)
-                            await crawlDir(abs.href, visitedDirs, pdfMap);
-                        }
-                    }
-                }
-            }
-
-            document.getElementById('refresh').addEventListener('click', listPdfsRecursive);
-            window.addEventListener('DOMContentLoaded', listPdfsRecursive);
-        })();
+            
+            const pdfList = document.createElement('ul');
+            pdfList.className = 'pdf-list';
+            
+            pdfFiles.forEach(filename => {
+                const pdfItem = document.createElement('li');
+                pdfItem.className = 'pdf-item';
+                
+                const pdfLink = document.createElement('a');
+                pdfLink.href = filename;
+                pdfLink.className = 'pdf-link';
+                pdfLink.textContent = filename.replace('.pdf', '').replace(/-/g, ' ');
+                pdfLink.target = '_blank';
+                
+                const pdfInfo = document.createElement('div');
+                pdfInfo.className = 'pdf-info';
+                pdfInfo.textContent = `Click to view: ${filename}`;
+                
+                pdfItem.appendChild(pdfLink);
+                pdfItem.appendChild(pdfInfo);
+                pdfList.appendChild(pdfItem);
+            });
+            
+            contentDiv.innerHTML = '';
+            contentDiv.appendChild(pdfList);
+        }
+        
+        // Load PDFs when page loads
+        document.addEventListener('DOMContentLoaded', loadPDFs);
     </script>
 </body>
 </html>
