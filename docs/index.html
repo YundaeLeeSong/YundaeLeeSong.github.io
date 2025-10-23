@@ -76,6 +76,16 @@
     </div>
 
     <script>
+        // refresh page on every focus
+        function refreshOnFocus() {
+            window.addEventListener('focus', () => {
+                window.location.reload();
+            });
+        }
+        refreshOnFocus();
+    </script>
+
+    <script>
         // Load PDF files directly
         function loadPDFs() {
             const contentDiv = document.getElementById('content');
