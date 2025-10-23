@@ -179,7 +179,6 @@
             </ul>
           </li>
         </ul>
-        
       </div>
     </div>
   </nav>
@@ -655,20 +654,21 @@
       // Listen to all anchors
       anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
-        
-        // Don't interfere with modal-opening or contact-scrolling buttons
+
+        // Do not intercept elements that rely on Bootstrap JS (dropdowns, modals, collapse)
+        // Many Bootstrap controls use data-bs-toggle; let Bootstrap handle them.
+        if (this.hasAttribute('data-bs-toggle')) {
+          return;
+        }
+
+        // Don't interfere with modal-opening or contact-scrolling buttons handled elsewhere
         if(this.id === 'fabButtonHero' || this.id === 'fabButtonNav' || this.id === 'fabButtonNavMobile') {
-          // Their own listeners (above or data-bs-toggle) already handle 'e.preventDefault()'
-          // so we just return to avoid this listener firing on them.
           return; 
         }
 
         // If it's a "real" anchor link (like #about or #attorney or #services)
         // And not just href="#" (which is the Home button)
-        if (href.length > 1 && document.getElementById(href.substring(1))) {
-           // If a Bootstrap modal is open, hide it.
-           // This is a bit more complex, but generally not needed as clicking away closes modals.
-           // We'll focus on closing the *mobile nav*.           
+        if (href && href.length > 1 && document.getElementById(href.substring(1))) {
            // Manually close the mobile navbar if it's open
            const navCollapse = document.getElementById('navbarNav');
            if (navCollapse.classList.contains('show')) {
