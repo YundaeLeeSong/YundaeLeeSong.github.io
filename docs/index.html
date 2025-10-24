@@ -1,143 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Documents</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .pdf-list {
-            list-style: none;
-            padding: 0;
-        }
-        .pdf-item {
-            background-color: #f8f9fa;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 5px;
-            border-left: 4px solid #007bff;
-            transition: background-color 0.3s;
-        }
-        .pdf-item:hover {
-            background-color: #e9ecef;
-        }
-        .pdf-link {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-            display: block;
-        }
-        .pdf-link:hover {
-            color: #0056b3;
-        }
-        .pdf-info {
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        .loading {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-        }
-        .error {
-            color: #dc3545;
-            text-align: center;
-            background-color: #f8d7da;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #f5c6cb;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Documents</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .pdf-list {
+      list-style: none;
+      padding: 0;
+    }
+    .pdf-item {
+      background-color: #f8f9fa;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #007bff;
+      transition: background-color 0.3s;
+    }
+    .pdf-item:hover {
+      background-color: #e9ecef;
+    }
+    .pdf-link {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+      display: block;
+    }
+    .pdf-link:hover {
+      color: #0056b3;
+    }
+    .pdf-info {
+      color: #666;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+    .loading {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+    .error {
+      color: #dc3545;
+      text-align: center;
+      background-color: #f8d7da;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📄 PDF Documents</h1>
-        <div id="content">
-            <div class="loading">Loading PDF files...</div>
-        </div>
+  <div class="container">
+    <h1>📄 PDF Documents</h1>
+    <div id="content">
+      <div class="loading">Loading PDF files...</div>
     </div>
+  </div>
 
-    <script>
-        // refresh page on every focus
-        function refreshOnFocus() {
-            window.addEventListener('focus', () => {
-                window.location.reload();
-            });
-        }
-        refreshOnFocus();
-    </script>
+  <form action="light_and_night.html" method="get">
+    <button type="submit">Submit and Go</button>
+  </form>
+  <form action="star.html" method="get">
+    <button type="submit">Submit and Go</button>
+  </form>
 
-    <script>
-        // Load PDF files directly
-        function loadPDFs() {
-            const contentDiv = document.getElementById('content');
-            
-            // List of PDF files in the same directory
-            const pdfFiles = [
-                'com01-skcnc.pdf',
-                'com02-siemens.pdf',
-                'com02-siemans.pdf',
-                '1810-membership-PhiThetaKappa.pdf',
-                '1911-HonorsList.pdf',
-                '2104-membership-NTHS.pdf',
-                '2105-GraduateAward-ComputerScience.pdf',
-                '2105-GraduateAward-JavaProgrammer.pdf',
-                '2105-membership-Ambassador.pdf',
-                '2105-MeritAward.pdf',
-                'project2405-server_derbyDB-docs.pdf',
-            ];
-            
-            if (pdfFiles.length === 0) {
-                contentDiv.innerHTML = '<div class="error">No PDF files found.</div>';
-                return;
-            }
-            
-            const pdfList = document.createElement('ul');
-            pdfList.className = 'pdf-list';
-            
-            pdfFiles.forEach(filename => {
-                const pdfItem = document.createElement('li');
-                pdfItem.className = 'pdf-item';
-                
-                const pdfLink = document.createElement('a');
-                pdfLink.href = filename;
-                pdfLink.className = 'pdf-link';
-                pdfLink.textContent = filename.replace('.pdf', '').replace(/-/g, ' ');
-                pdfLink.target = '_blank';
-                
-                const pdfInfo = document.createElement('div');
-                pdfInfo.className = 'pdf-info';
-                pdfInfo.textContent = `Click to view: ${filename}`;
-                
-                pdfItem.appendChild(pdfLink);
-                pdfItem.appendChild(pdfInfo);
-                pdfList.appendChild(pdfItem);
-            });
-            
-            contentDiv.innerHTML = '';
-            contentDiv.appendChild(pdfList);
-        }
+
+  <script>
+    // refresh page on every focus
+    function refreshOnFocus() {
+      window.addEventListener('focus', () => {
+        window.location.reload();
+      });
+    }
+    refreshOnFocus();
+  </script>
+
+  <script>
+    // Load PDF files directly
+    function loadPDFs() {
+      const contentDiv = document.getElementById('content');
+      
+      // List of PDF files in the same directory
+      const pdfFiles = [
+        'com01-skcnc.pdf',
+        'com02-siemens.pdf',
+        'com02-siemans.pdf',
+        '1810-membership-PhiThetaKappa.pdf',
+        '1911-HonorsList.pdf',
+        '2104-membership-NTHS.pdf',
+        '2105-GraduateAward-ComputerScience.pdf',
+        '2105-GraduateAward-JavaProgrammer.pdf',
+        '2105-membership-Ambassador.pdf',
+        '2105-MeritAward.pdf',
+        'project2405-server_derbyDB-docs.pdf',
+      ];
+      
+      if (pdfFiles.length === 0) {
+        contentDiv.innerHTML = '<div class="error">No PDF files found.</div>';
+        return;
+      }
+      
+      const pdfList = document.createElement('ul');
+      pdfList.className = 'pdf-list';
+      
+      pdfFiles.forEach(filename => {
+        const pdfItem = document.createElement('li');
+        pdfItem.className = 'pdf-item';
         
-        // Load PDFs when page loads
-        document.addEventListener('DOMContentLoaded', loadPDFs);
-    </script>
+        const pdfLink = document.createElement('a');
+        pdfLink.href = filename;
+        pdfLink.className = 'pdf-link';
+        pdfLink.textContent = filename.replace('.pdf', '').replace(/-/g, ' ');
+        pdfLink.target = '_blank';
+        
+        const pdfInfo = document.createElement('div');
+        pdfInfo.className = 'pdf-info';
+        pdfInfo.textContent = `Click to view: ${filename}`;
+        
+        pdfItem.appendChild(pdfLink);
+        pdfItem.appendChild(pdfInfo);
+        pdfList.appendChild(pdfItem);
+      });
+      
+      contentDiv.innerHTML = '';
+      contentDiv.appendChild(pdfList);
+    }
+    
+    // Load PDFs when page loads
+    document.addEventListener('DOMContentLoaded', loadPDFs);
+  </script>
 </body>
 </html>
