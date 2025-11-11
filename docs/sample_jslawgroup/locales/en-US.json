@@ -1,0 +1,120 @@
+{
+  "app": {
+    "title": "Sample i18n App (English)"
+  },
+  "user": {
+    "greeting": "Hello!",
+    "profile": {
+      "age": "Age",
+      "bio": "Bio"
+    }
+  },
+  "plurals": {
+    "apples": {
+      "zero": "No apples",
+      "one": "1 apple",
+      "other": "Apples"
+    },
+    "reviews": {
+      "one": "1 review",
+      "other": "Reviews"
+    }
+  },
+  "lastUpdated": "Last updated",
+  "currencyExample": "Total price",
+  "numberExample": "Formatted number",
+  "htmlExample": "Click <a href=\"https://example.com\" target=\"_blank\" rel=\"noopener\">here</a> to learn more.",
+  "directionExample": "This text will auto-detect RTL/LTR and set direction if requested.",
+  "missingExample": "Missing-key fallback demo",
+  "complex": {
+    "nested": {
+      "deep": "Deep value"
+    }
+  },
+  "nav": {
+    "title": "JS Law Group",
+    "home": "Home",
+    "about": "About",
+    "careers": "Careers",
+    "appointment": "Appointment",
+    "attorney": "Our Teams",
+    "services": "Practice Areas",
+    "contact": "Contact",
+    "consultation": "Free Consultation"
+  },
+  "hero": {
+    "title": "Innovative Solutions, Legal Excellence",
+    "subtitle": "Your trusted legal advocates for personal injury and criminal defense. We fight for your rights.",
+    "button1": "Our Practice Areas",
+    "button2": "Get in Touch"
+  },
+  "services": {
+    "title": "Practice Areas",
+    "subtitle": "Dedicated expertise in critical areas of law.",
+    "area1": {
+      "title": "Personal Injury",
+      "desc": "Fighting for the compensation you deserve after an accident. Car accidents, slip and fall, and more."
+    },
+    "area2": {
+      "title": "Criminal Defense",
+      "desc": "Aggressive defense for DUI, drug offenses, assault, and other criminal charges."
+    },
+    "area3": {
+      "title": "Family Law",
+      "desc": "Compassionate guidance through divorce, custody, and other family matters."
+    }
+  },
+  "about": {
+    "title": "About JS Law Group",
+    "desc": "We are a passionate team of legal professionals dedicated to providing top-tier representation. Our focus is on achieving the best possible outcome for every client through tireless advocacy and personalized attention.",
+    "feature1": "Client-Centric Approach",
+    "feature2": "Aggressive Representation",
+    "feature3": "Proven Track Record"
+  },
+  "footer": {
+    "copyright": "&copy; 2024 by JS LAW Group, LLC. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  },
+  "contact": {
+    "title": "Free Consultation",
+    "subtitle": "Tell us about your case. All information is confidential.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "inquiryType": "Inquiry Type",
+    "selectOne": "Please select one...",
+    "pi": "Personal Injury",
+    "cd": "Criminal Defense",
+    "fl": "Family Law",
+    "other": "Other",
+    "message": "Tell us about your case",
+    "messagePlaceholder": "Please provide a brief description of your situation...",
+    "submit": "Submit Inquiry"
+  },
+  "contactinfo": {
+    "title": "Our Location",
+    "address": {
+      "title": "Address"
+    },
+    "contact": {
+      "title": "Contact"
+    },
+    "office": "Office",
+    "fax": "Facsimile",
+    "email": "E-mail",
+    "hours": {
+      "title": "Opening Hours"
+    },
+    "weekdays": "Weekdays: 9:00 am - 5:00 pm"
+  },
+  "careers": {
+    "title": "Careers",
+    "p1": "At JS Law Group, LLC we believe that exceptional legal service begins with exceptional people.",
+    "p2": "We are continuously seeking talented individuals who share our commitment to excellence.",
+    "p3": "Whether you are an experienced attorney, a recent law school graduate, or a seasoned professional in legal support services, JS Law Group, LLC offers a dynamic and rewarding career path.",
+    "p4": "We provide comprehensive training, mentorship programs, and ongoing development opportunities to help you reach your full potential.",
+    "p5": "To apply, please submit your resume to <a href=\"mailto:info@jslawgroup.net\">info@jslawgroup.net</a>"
+  }
+}

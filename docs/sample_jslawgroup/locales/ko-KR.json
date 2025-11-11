@@ -1,0 +1,120 @@
+{
+  "app": {
+    "title": "샘플 i18n 앱 (한국어)"
+  },
+  "user": {
+    "greeting": "안녕하세요!",
+    "profile": {
+      "age": "나이",
+      "bio": "소개"
+    }
+  },
+  "plurals": {
+    "apples": {
+      "other": "사과",
+      "one": "사과 1개",
+      "zero": "사과가 없습니다"
+    },
+    "reviews": {
+      "other": "평가",
+      "one": "평가 1개"
+    }
+  },
+  "lastUpdated": "최종 업데이트",
+  "currencyExample": "총액",
+  "numberExample": "형식화된 수",
+  "htmlExample": "<a href=\"https://example.com\" target=\"_blank\" rel=\"noopener\">여기</a>를 클릭하세요.",
+  "directionExample": "요소에 요청하면 방향을 자동으로 설정합니다.",
+  "missingExample": "키가 없습니다",
+  "complex": {
+    "nested": {
+      "deep": "깊은 값"
+    }
+  },
+  "nav": {
+    "title": "JS 로펌",
+    "home": "홈",
+    "about": "소개",
+    "careers": "채용 정보",
+    "appointment": "예약하기",
+    "attorney": "우리 팀",
+    "services": "전문 분야",
+    "contact": "연락하기",
+    "consultation": "무료 상담"
+  },
+  "hero": {
+    "title": "혁신적인 솔루션, 법률적 탁월함",
+    "subtitle": "상해 및 형사 방어 전문 로펌. 저희가 당신의 권리를 위해 싸우겠습니다.",
+    "button1": "전문 분야",
+    "button2": "연락하기"
+  },
+  "services": {
+    "title": "전문 분야",
+    "subtitle": "핵심 법률 분야에 대한 전문성.",
+    "area1": {
+      "title": "개인 상해",
+      "desc": "사고 후 받아야 할 보상을 위해 싸웁니다. 교통사고, 낙상 사고 등."
+    },
+    "area2": {
+      "title": "형사 방어",
+      "desc": "DUI, 마약, 폭행 및 기타 형사 고발에 대한 적극적인 방어."
+    },
+    "area3": {
+      "title": "가정법",
+      "desc": "이혼, 양육권 및 기타 가족 문제에 대한 공감적인 안내."
+    }
+  },
+  "about": {
+    "title": "JS 로펌 소개",
+    "desc": "저희는 최고 수준의 법률 대리를 제공하기 위해 헌신하는 열정적인 법률 전문가 팀입니다. 지칠 줄 모르는 변호와 맞춤형 관심으로 모든 고객에게 최상의 결과를 달성하는 데 중점을 둡니다.",
+    "feature1": "고객 중심 접근",
+    "feature2": "적극적인 변호",
+    "feature3": "입증된 실적"
+  },
+  "footer": {
+    "copyright": "&copy; 2024 by JS LAW Group, LLC. 모든 권리 보유.",
+    "privacy": "개인정보 처리방침",
+    "terms": "이용약관"
+  },
+  "contact": {
+    "title": "무료 상담",
+    "subtitle": "귀하의 케이스에 대해 알려주십시오. 모든 정보는 기밀로 유지됩니다.",
+    "firstName": "이름 (First Name)",
+    "lastName": "성 (Last Name)",
+    "email": "이메일",
+    "phone": "전화번호",
+    "inquiryType": "문의 유형",
+    "selectOne": "하나를 선택해주세요...",
+    "pi": "개인 상해",
+    "cd": "형사 방어",
+    "fl": "가정법",
+    "other": "기타",
+    "message": "케이스에 대해 알려주세요",
+    "messagePlaceholder": "상황에 대해 간략하게 설명해주세요...",
+    "submit": "문의 제출"
+  },
+  "contactinfo": {
+    "title": "오시는 길",
+    "address": {
+      "title": "주소"
+    },
+    "contact": {
+      "title": "연락처"
+    },
+    "office": "사무실",
+    "fax": "팩스",
+    "email": "이메일",
+    "hours": {
+      "title": "영업 시간"
+    },
+    "weekdays": "평일: 오전 9:00 - 오후 5:00"
+  },
+  "careers": {
+    "title": "채용 정보",
+    "p1": "JS 로펌은 탁월한 법률 서비스를 제공하기 위해 뛰어난 인재를 지속적으로 찾고 있습니다.",
+    "p2": "우리는 탁월함에 대한 우리의 헌신을 공유하는 재능 있는 개인을 지속적으로 찾고 있습니다.",
+    "p3": "당신이 경험이 풍부한 변호사이든, 최근 법대 졸업생이든, 법률 지원 서비스의 노련한 전문가이든, JS 로펌은 역동적이고 보람 있는 경력 경로를 제공합니다.",
+    "p4": "우리는 귀하가 잠재력을 최대한 발휘할 수 있도록 포괄적인 교육, 멘토십 프로그램 및 지속적인 개발 기회를 제공합니다.",
+    "p5": "지원하려면 이력서를 <a href=\"mailto:info@jslawgroup.net\">info@jslawgroup.net</a>로 제출하십시오."
+  }
+}

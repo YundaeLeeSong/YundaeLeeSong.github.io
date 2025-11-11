@@ -1,38 +1,18 @@
-// js/index.js
-// Dynamic allocator — chooses ./controller/<pagename>.js based on the HTML file.
-// All constructed paths are relative to this file and do NOT begin with '/'.
+// event-driven programming
+import * as Util from '../core-module.js';
 
-function sanitizeName(name) {
-    // allow letters, numbers, dash, underscore only (Regular Expression, regex)
-    return name.replace(/[^a-zA-Z0-9_-]/g, '');
+export default function main() {
+    Util.setupWindowFocusRefresh();
+    Util.clickToCenter('cb009', 'cb005');
+    Util.enableButtonRedirect('btn-redirect');
+    // Util.addNavigationFunctionality1();
+
+    // console.log(5 == "5");   // true (type coercion occurs: "5" becomes 5)
+    // console.log(5 === "5");  // false (types are different: number vs string)
+
+    // console.log(0 == false); // true (type coercion occurs: false becomes 0)
+    // console.log(0 === false); // false (types are different: number vs boolean)
+
+    // console.log(null == undefined); // true (special case for null and undefined)
+    // console.log(null === undefined); // false (types are different)
 }
-
-function pageNameFromPath(pathname) {
-    // e.g. pathname:
-    // "" or "/" -> index
-    // "index.html" -> index
-    // "about.html" -> about
-    // "some" -> some
-    const raw = (pathname || '').split('/').pop() || '';
-    if (!raw) return 'index';
-    const noQuery = raw.split('?')[0].split('#')[0];
-    let name = noQuery.endsWith('.html') ? noQuery.slice(0, -5) : noQuery;
-    name = sanitizeName(name);
-    return name || 'index';
-}
-
-document.addEventListener('DOMContentLoaded', async () => {
-    const pageName = pageNameFromPath(window.location.pathname);
-    const relativePagePath = `./controller/${pageName}.js`; // relative, no leading '/'
-    try {
-        const module = await import(relativePagePath);
-        if (module && typeof module.default === 'function') {
-        await module.default(); // page module handles its DOM using core-module
-        } else {
-        console.warn(`Page module loaded but has no default export function: ${relativePagePath}`);
-        }
-    } catch (err) {
-        // Per your request: no 404 fallback. Just log the error.
-        console.error(`Failed to load page module: ${relativePagePath}`, err);
-    }
-});

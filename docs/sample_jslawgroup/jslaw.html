@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Changed title to match the law firm -->
+  <title>JS Law Group (서조은 법률 그룹)</title>
+  
+  <!-- Bootstrap 5 CSS (Reactivated CDN link) -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+ 
+  
+  <!-- Font Awesome 6 CSS (Restored integrity) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap Core: ser's custom.css link (Commented out to allow preview) -->
+  <link href="css/custom.min.css" rel="stylesheet">
+
+
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Using Noto Sans Korean for Korean text -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <div id="nav"></div>
+
+  
+  <!-- 2. Hero Section - MERGED WITH SERVICES -->
+  <header id="services" class="hero-section">
+    <div class="container">
+      <!-- Row 1: Hero Text -->
+      <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 data-i18n="hero.title"
+              class="display-4 fw-bold mb-4">
+            hero.title fallback
+          </h1>
+          <p data-i18n="hero.subtitle"
+             class="lead text-muted mb-4">
+            hero.subtitle fallback
+          </p>
+          <!-- Simplified CTA - Added Bootstrap modal triggers -->
+          <a data-i18n="hero.button2"
+             class="btn btn-primary btn-lg rounded-pill px-4 py-2" 
+             href="#" 
+             id="fabButtonHero" 
+             data-bs-toggle="modal" 
+             data-bs-target="#contactModal">
+            hero.button2 fallback
+          </a>
+        </div>
+      </div>
+      <!-- Row 2: Service Cards (Moved from services section) -->
+      <div class="row g-4">
+        <!-- Service 1: Personal Injury -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-4">
+            <div class="card-body">
+              <i class="fa-solid fa-car-burst feature-icon mb-3"></i>
+              <h5 data-i18n="services.area1.title"
+                  class="card-title fw-bold">
+                services.area1.title fallback
+              </h5>
+              <p data-i18n="services.area1.desc"
+                 class="card-text text-muted">
+                services.area1.desc fallback
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Service 2: Criminal Defense -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-4">
+            <div class="card-body">
+              <i class="fa-solid fa-gavel feature-icon mb-3"></i>
+              <h5 data-i18n="services.area2.title"
+                  class="card-title fw-bold">
+                services.area2.title fallback
+              </h5>
+              <p data-i18n="services.area2.desc"
+                 class="card-text text-muted">
+                services.area2.desc fallback
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Service 3: Family Law (Example) -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-4">
+            <div class="card-body">
+              <i class="fa-solid fa-users feature-icon mb-3"></i>
+              <h5 data-i18n="services.area3.title"
+                  class="card-title fw-bold">
+                services.area3.title fallback
+              </h5>
+              <p data-i18n="services.area3.desc"
+                 class="card-text text-muted">
+                services.area3.desc fallback
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Careers Section (NEW) -->
+  <section id="careers" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center"> <!-- Centered layout -->
+          <h2 data-i18n="careers.title"
+              class="fw-bold mb-4">
+            careers.title fallback
+          </h2>
+          <p data-i18n-html="careers.p1"
+             class="text-muted mb-3">
+            careers.p1 fallback
+          </p>
+          <p data-i18n="careers.p2"
+             class="text-muted mb-3">
+            careers.p2 fallback
+          </p>
+          <p data-i18n="careers.p3"
+             class="text-muted mb-3">
+            careers.p3 fallback
+          </p>
+          <p data-i18n="careers.p4"
+             class="text-muted mb-3">
+            careers.p4 fallback
+          </p>
+          <p data-i18n-html="careers.p5"
+             class="text-muted mb-0">
+            careers.p5 fallback
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. About Section -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <!-- Placeholder image updated -->
+          <!-- Note: This image path is local and may not load in preview -->
+          <img src="images/JSlawGroupLOGO.avif" class="img-fluid rounded-4 shadow" alt="JS Law Group">
+        </div>
+        <div class="col-lg-6">
+          <h2 data-i18n="about.title"
+              class="fw-bold mb-3">
+            about.title fallback
+          </h2>
+          <p data-i18n="about.desc"
+             class="text-muted mb-4">
+            about.desc fallback
+          </p>
+          <!-- Feature list updated for law -->
+          <ul class="list-unstyled text-muted">
+            <li class="mb-2">
+              <i class="fa-solid fa-check-circle text-primary me-2"></i>
+              <span data-i18n="about.feature1">
+                about.feature1 fallback
+              </span>
+            </li>
+            <li class="mb-2">
+              <i class="fa-solid fa-check-circle text-primary me-2"></i>
+              <span data-i18n="about.feature2">
+                about.feature2 fallback
+              </span>
+            </li>
+            <li class="mb-2">
+              <i class="fa-solid fa-check-circle text-primary me-2"></i>
+              <span data-i18n="about.feature3">
+                about.feature3 fallback
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4.1 Attorney / Profile Section (New section from user) -->
+  <section id="attorney" 
+           class="py-5">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <h3 class="fw-bold mb-2">Joan Suh</h3>
+          <h5 class="text-primary mb-3">서조은 변호사</h5>
+          <p class="text-muted mb-3">
+            We specialize in client-centered legal services, providing expert advice and swift solutions across various legal fields. With a commitment to fairness and justice, our dedicated team prioritizes transparent communication to build trust and ensure effective resolution of legal challenges.
+          </p>
+          <p class="text-muted mb-3">
+            Trust us to deliver secure and efficient solutions to your legal matters. Consult with us anytime.
+          </p>
+          <p class="text-muted mb-0">Thank you.</p>
+        </div>
+        <div class="col-lg-5">
+          <!-- Note: This image path is local and may not load in preview -->
+          <img src="images/about_Joan_Suh.avif" 
+               class="img-fluid rounded-4 shadow" 
+               alt="Joan Suh, 서조은 변호사">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. New Contact Info Section -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 data-i18n="contactinfo.title"
+            class="fw-bold">
+          contactinfo.title fallback
+        </h2>
+      </div>
+      <div class="row g-4 text-center">
+        <!-- Column 1: Address -->
+        <div class="col-lg-4 col-md-6">
+          <i class="fa-solid fa-map-marker-alt fa-2x text-primary mb-3"></i>
+          <h5 data-i18n="contactinfo.address.title"
+              class="fw-bold mb-3">
+            contactinfo.address.title fallback
+          </h5>
+          <p class="text-muted mb-0">3296 Summit Ridge Pkwy</p>
+          <p class="text-muted mb-0">Suite 1010</p>
+          <p class="text-muted mb-0">Duluth, Georgia 30096</p>
+        </div>
+        <!-- Column 2: Contact -->
+        <div class="col-lg-4 col-md-6">
+          <i class="fa-solid fa-phone fa-2x text-primary mb-3"></i>
+          <h5 data-i18n="contactinfo.contact.title"
+              class="fw-bold mb-3">
+            contactinfo.contact.title fallback
+          </h5>
+          <p class="text-muted mb-0">
+            <span data-i18n="contactinfo.office">
+              contactinfo.office fallback
+            </span>: (770) 341-1234
+          </p>
+          <p class="text-muted mb-0">
+            <span data-i18n="contactinfo.fax">
+              contactinfo.fax fallback
+            </span>: (770) 215-2823
+          </p>
+          <p class="text-muted mb-0">
+            <span data-i18n="contactinfo.email">
+              contactinfo.email fallback
+            </span>: jsuh@jslawgroup.net
+          </p>
+        </div>
+        <!-- Column 3: Opening Hours -->
+        <div class="col-lg-4 col-md-12"> <!-- Full width on medium, 1/3 on large -->
+          <i class="fa-solid fa-clock fa-2x text-primary mb-3"></i>
+          <h5 data-i18n="contactinfo.hours.title"
+              class="fw-bold mb-3">
+            contactinfo.hours.title fallback
+          </h5>
+          <p data-i18n="contactinfo.weekdays"
+             class="text-muted mb-0">
+            contactinfo.weekdays fallback
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+
+  <!-- 6. Footer -->
+  <div id="footer"></div>
+
+  
+
+
+  <!-- Floating Action Button (FAB) - Added Bootstrap modal triggers -->
+  <div class="fab" 
+       id="fabButton" 
+       data-bs-toggle="modal" 
+       data-bs-target="#contactModal">
+    <i class="fa-solid fa-envelope"></i>
+  </div>
+
+  <!-- Full-screen Modal Contact Form - REPLACED with Bootstrap Modal -->
+  <div class="modal fade" 
+       id="contactModal" 
+       tabindex="-1" 
+       aria-labelledby="contactModalLabel" 
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content shadow-lg rounded-4">
+        <div class="modal-header border-0">
+          <!-- Title from old modal, now the official modal title -->
+          <h5 data-i18n="contact.title"
+              class="modal-title fw-bold" 
+              id="contactModalLabel">
+            contact.title fallback
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <!-- Subtitle from old modal, now in the body -->
+          <p data-i18n="contact.subtitle"
+             class="text-muted text-center mb-4">
+            contact.subtitle fallback
+          </p>
+          
+          <!-- Existing Form (unchanged) -->
+          <form id="contactForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label data-i18n="contact.firstName"
+                       for="modalFirstName" 
+                       class="form-label">
+                  contact.firstName fallback
+                </label>
+                <input type="text" 
+                       class="form-control rounded-pill" 
+                       id="modalFirstName" 
+                       required>
+              </div>
+              <div class="col-md-6">
+                <label data-i18n="contact.lastName"
+                       for="modalLastName" 
+                       class="form-label">
+                  contact.lastName fallback
+                </label>
+                <input type="text" 
+                       class="form-control rounded-pill" 
+                       id="modalLastName" 
+                       required>
+              </div>
+              <div class="col-md-6">
+                <label data-i18n="contact.email"
+                       for="modalEmail" 
+                       class="form-label">
+                  contact.email fallback
+                </label>
+                <input type="email" 
+                       class="form-control rounded-pill" 
+                       id="modalEmail" 
+                       required>
+              </div>
+              <div class="col-md-6">
+                <label data-i18n="contact.phone"
+                       for="modalPhone" 
+                       class="form-label">
+                  contact.phone fallback
+                </label>
+                <input type="tel" 
+                       class="form-control rounded-pill" 
+                       id="modalPhone">
+              </div>
+              <div class="col-12">
+                <label data-i18n="contact.inquiryType"
+                       for="inquiryType" 
+                       class="form-label">
+                  contact.inquiryType fallback
+                </label>
+                <select class="form-select rounded-pill" 
+                        id="inquiryType">
+                  <option value="default" 
+                          data-i18n="contact.selectOne">
+                    contact.selectOne fallback
+                  </option>
+                  <option value="pi" 
+                          data-i18n="contact.pi">
+                    contact.pi fallback
+                  </option>
+                  <option value="cd" 
+                          data-i18n="contact.cd">
+                    contact.cd fallback
+                  </option>
+                  <option value="fl" 
+                          data-i18n="contact.fl">
+                    contact.fl fallback
+                  </option>
+                  <option value="other" 
+                          data-i18n="contact.other">
+                    contact.other fallback
+                  </option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label data-i18n="contact.message"
+                       for="modalMessage" 
+                       class="form-label">
+                  contact.message fallback
+                </label>
+                <textarea id="modalMessage" data-i18n="contact.messagePlaceholder"
+                          class="form-control"  
+                          rows="5" 
+                          style="border-radius: 1.5rem;" 
+                          required 
+                          placeholder="contact.messagePlaceholder fallback">
+                </textarea>
+              </div>
+              <div class="col-12 text-center">
+                <button data-i18n="contact.submit"
+                        class="btn btn-primary btn-lg rounded-pill px-5" 
+                        type="submit">
+                  contact.submit fallback
+                </button>
+              </div>
+            </div>
+          </form>
+          <!-- End of Existing Form -->
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+<script type="module" src="index.js"></script>
+</html>
+
+<!-- 
+https://en.training.qatestlab.com/blog/technical-articles/dictionary-of-the-basic-ui-ux-elements/
+https://devsquad.com/blog/user-interface-layouts
+https://designingwebinterfaces.com/15-common-components
+ -->

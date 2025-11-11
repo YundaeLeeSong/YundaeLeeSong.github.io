@@ -1,0 +1,45 @@
+{
+    "app": {
+      "title": "サンプル i18n アプリ (日本語)"
+    },
+    "user": {
+      "greeting": "こんにちは！",
+      "profile": {
+        "age": "年齢",
+        "bio": "自己紹介"
+      }
+    },
+    "plurals": {
+      "apples": {
+        "zero": "りんごなし",
+        "one": "りんご 1個",
+        "other": "りんご"
+      },
+      "reviews": {
+        "one": "レビュー 1件",
+        "other": "レビュー"
+      }
+    },
+    "lastUpdated": "最終更新",
+    "currencyExample": "合計価格",
+    "numberExample": "フォーマット済み数値",
+    "htmlExample": "詳細は<a href=\"https://example.com\" target=\"_blank\" rel=\"noopener\">こちら</a>をクリックしてください。",
+    "directionExample": "このテキストはRTL/LTRを自動検出し、要求に応じて方向を設定します。",
+    "missingExample": "キーなしフォールバックデモ",
+    "complex": {
+      "nested": {
+        "deep": "深い値"
+      }
+    },
+    "nav": {
+      "title": "JS Law Group",
+      "home": "ホーム",
+      "about": "について",
+      "careers": "採用情報",
+      "appointment": "予約",
+      "attorney": "私たちのチーム",
+      "services": "専門分野",
+      "contact": "お問い合わせ",
+      "consultation": "無料相談"
+    }
+  }
