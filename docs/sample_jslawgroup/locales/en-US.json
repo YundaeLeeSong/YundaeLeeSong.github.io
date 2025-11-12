@@ -37,7 +37,7 @@
     "about": "About",
     "careers": "Careers",
     "appointment": "Appointment",
-    "attorney": "Our Teams",
+    "team": "Our Teams",
     "services": "Practice Areas",
     "contact": "Contact",
     "consultation": "Free Consultation"
@@ -74,7 +74,16 @@
   "footer": {
     "copyright": "&copy; 2024 by JS LAW Group, LLC. All rights reserved.",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Use"
+    "terms": "Terms of Use",
+    "copyrightOffice": "&copy; JS LAW Group, LLC. 2024 - 2025",
+    "faqs": "FAQs",
+    "corporateInformation": "Corporate information",
+    "privacyNotice": "Privacy notice",
+    "cookieNotice": "Cookie notice",
+    "termsOfUse": "Terms of use",
+    "digitalId": "Digital ID",
+    "whistleblowing": "Whistleblowing",
+    "importantNote": "<strong>Important Note:</strong> This website is designed for clients seeking legal representation in Personal Injury (PI) and Criminal Defense (CD) cases. The website allows you to submit an inquiry form to contact our firm. Please be aware that JS Law Group, LLC never charges clients any fees upfront or before providing legal services. We do not request payment, banking details, or personal financial information prior to consultation or case evaluation. All initial consultations are free, and fees are only discussed after we have reviewed your case and agreed to represent you."
   },
   "contact": {
     "title": "Free Consultation",
@@ -96,10 +105,12 @@
   "contactinfo": {
     "title": "Our Location",
     "address": {
-      "title": "Address"
+      "title": "Address",
+      "details": "<p class=\"mb-0\">3296 Summit Ridge Pkwy</p><p class=\"mb-0\">Suite 1010</p><p class=\"mb-0\">Duluth, Georgia 30096</p>"
     },
     "contact": {
-      "title": "Contact"
+      "title": "Contact",
+      "details": "<p class=\"mb-0\">Office: (770) 341-1234</p><p class=\"mb-0\">Facsimile: (770) 215-2823</p><p class=\"mb-0\">E-mail: <a href=\"mailto:jsuh@jslawgroup.net\">jsuh@jslawgroup.net</a></p>"
     },
     "office": "Office",
     "fax": "Facsimile",
@@ -109,11 +120,19 @@
     },
     "weekdays": "Weekdays: 9:00 am - 5:00 pm"
   },
+  "attorney": {
+    "name": "Joan Suh",
+    "title": "서조은 변호사",
+    "p1": "We specialize in client-centered legal services, providing expert advice and swift solutions across various legal fields. With a commitment to fairness and justice, our dedicated team prioritizes transparent communication to build trust and ensure effective resolution of legal challenges.",
+    "p2": "Trust us to deliver secure and efficient solutions to your legal matters. Consult with us anytime.",
+    "p3": "Thank you.",
+    "alt": "Joan Suh, 서조은 변호사"
+  },
   "careers": {
     "title": "Careers",
     "p1": "At JS Law Group, LLC we believe that exceptional legal service begins with exceptional people.",
     "p2": "We are continuously seeking talented individuals who share our commitment to excellence.",
-    "p3": "Whether you are an experienced attorney, a recent law school graduate, or a seasoned professional in legal support services, JS Law Group, LLC offers a dynamic and rewarding career path.",
+    "p3": "Whether you are an experienced team, a recent law school graduate, or a seasoned professional in legal support services, JS Law Group, LLC offers a dynamic and rewarding career path.",
     "p4": "We provide comprehensive training, mentorship programs, and ongoing development opportunities to help you reach your full potential.",
     "p5": "To apply, please submit your resume to <a href=\"mailto:info@jslawgroup.net\">info@jslawgroup.net</a>"
   }

@@ -109,41 +109,22 @@ export function translate(translationKey) {
 
 
 /**
- * Applies translations to all elements with i18n attributes within the specified root element.
- * @param {Document|Element} [root=document] - The root element to search for i18n elements
- * @param {string} [i18nAttr='data-i18n'] - The attribute name for text translations
- * @param {string} [i18nHtmlAttr='data-i18n-html'] - The attribute name for HTML translations
+ * Applies translations to all elements with i18n attributes within the document.
+ * @param {string} [i18nAttr='data-i18n'] - The attribute name for HTML translations
  * @param {string} [locale='en-US'] - The locale code to display in the locale label
  * @returns {void}
  * 
  * @example
- * // Apply translations to entire document
- * applyTranslations();
- * 
- * // Apply translations to a specific container
- * const container = document.getElementById('content');
- * applyTranslations(container);
- * 
- * // Apply translations with custom attribute names
- * applyTranslations(document, 'data-translate', 'data-translate-html', 'en-US');
+ * // Apply translations with a custom attribute name
+ * applyTranslations('data-translate', 'en-US');
  * 
  * // HTML structure needed:
  * // <p data-i18n="user.greeting">Hello</p>
- * // <div data-i18n-html="user.bio">Bio text</div>
+ * // <div data-i18n="user.bio">Bio text</div>
  */
-export function applyTranslations(root = document, i18nAttr = 'data-i18n', i18nHtmlAttr = 'data-i18n-html', locale = 'en-US') {
-  const localeLabel = document.getElementById('cb050');
-  if (localeLabel) localeLabel.textContent = locale;
-
-  root.querySelectorAll(`[${i18nAttr}]`).forEach(el => {
+export function applyTranslations(i18nAttr = 'data-i18n', locale = 'en-US') {
+  document.querySelectorAll(`[${i18nAttr}]`).forEach(el => {
     const key = el.getAttribute(i18nAttr);
-    if (!key) return;
-    const text = translate(key);
-    el.textContent = text;
-  });
-
-  root.querySelectorAll(`[${i18nHtmlAttr}]`).forEach(el => {
-    const key = el.getAttribute(i18nHtmlAttr);
     if (!key) return;
     const html = translate(key);
     el.innerHTML = html;
@@ -162,9 +143,7 @@ export function applyTranslations(root = document, i18nAttr = 'data-i18n', i18nH
  * This is a convenience function that combines switchLocale() and applyTranslations().
  * @param {string} localeCode - The locale code to switch to (e.g., 'en-US', 'ko-KR', 'ja-JP')
  * @param {string} [dir='locales'] - The directory containing locale files
- * @param {Document|Element} [root=document] - The root element to apply translations to
- * @param {string} [i18nAttr='data-i18n'] - The attribute name for text translations
- * @param {string} [i18nHtmlAttr='data-i18n-html'] - The attribute name for HTML translations
+ * @param {string} [i18nAttr='data-i18n'] - The attribute name for HTML translations
  * @returns {Promise<void>} Promise that resolves when the language is switched and translations are applied
  * 
  * @example
@@ -176,10 +155,10 @@ export function applyTranslations(root = document, i18nAttr = 'data-i18n', i18nH
  * 
  * @throws {Error} Throws an error if the locale file cannot be loaded
  */
-export async function switchLanguage(localeCode, dir = 'locales', root = document, i18nAttr = 'data-i18n', i18nHtmlAttr = 'data-i18n-html') {
+export async function switchLanguage(localeCode, dir = 'locales', i18nAttr = 'data-i18n') {
   try {
     await switchLocale(localeCode, dir);
-    applyTranslations(root, i18nAttr, i18nHtmlAttr, localeCode);
+    applyTranslations(i18nAttr, localeCode);
   } catch (error) {
     console.error(`[exi18n] Error: Failed to switch to locale "${localeCode}":`, error);
     throw error;
