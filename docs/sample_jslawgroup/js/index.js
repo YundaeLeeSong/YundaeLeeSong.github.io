@@ -15,8 +15,8 @@ export default async function main() {
 
 
     Util.setupWindowFocusRefresh();
-    Util.loadFragment('nav', 'nav-fixed-1col2row.html').then(() => {
-    Util.loadFragment('footer', 'footer-classic-office.html').then(async () => {
+    Util.loadFragment('nav', 'nav.html').then(() => {
+    Util.loadFragment('footer', 'footer.html').then(async () => {
         FontAwesome.initThemeIcons(['cthm001', 'cthm002']);
         document.addEventListener('click', (e) => {
             if (e.target.closest('#cthm001') || e.target.closest('#cthm002')) {
