@@ -23,11 +23,11 @@ Design notes
       are copied. Missing subdirs are skipped with a warning.
 
 Command-line interface
-    python server.py <project_dir>             # run server on default port 8080
-    python server.py <project_dir> -b          # create build-<project_dir> and exit
-    python server.py <project_dir> --build          # create build-<project_dir> and exit
-    python server.py <project_dir> -b -o dist  # copy into "dist" instead of build-...
-    python server.py <project_dir> --port 5000 # run server on port 5000
+    python server.py [<project_dir>]          # run server on default port 8080 (uses current dir if not specified)
+    python server.py [<project_dir>] -b        # create build-<project_dir> and serve it
+    python server.py [<project_dir>] --build   # create build-<project_dir> and serve it
+    python server.py [<project_dir>] -b -o dist  # copy into "dist" instead of build-... and serve it
+    python server.py [<project_dir>] --port 5000 # run server on port 5000
 
 Note for contributors
 - If you want more production-ready serving (cache headers, gzip, etc.), use a proper build pipeline
@@ -149,7 +149,18 @@ def build_project(project_dir: str, out_dir: Optional[str] = None) -> str:
     """
     project_dir = os.path.abspath(project_dir)
     project_basename = os.path.basename(os.path.normpath(project_dir))
-    build_dir = os.path.abspath(out_dir) if out_dir else os.path.abspath(f"build-{project_basename}")
+    
+    if out_dir:
+        build_dir = os.path.abspath(out_dir)
+    else:
+        # Create build directory in the current working directory (where the script is run from)
+        # This ensures build-<name> appears in the same directory as the project
+        cwd = os.getcwd()
+        build_dir = os.path.join(cwd, f"build-{project_basename}")
+        build_dir = os.path.abspath(build_dir)
+    
+    print(f"Building from: {project_dir}")
+    print(f"Build directory: {build_dir}")
 
     # Clean slate
     if os.path.exists(build_dir):
@@ -207,10 +218,11 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
     Parse CLI arguments.
 
     Positional:
-        project_dir - required path to the project directory (where includes/, public/, src/ live)
+        project_dir - optional path to the project directory (where includes/, public/, src/ live).
+                      If not provided, defaults to current directory (.)
 
     Flags:
-        -b/--build : if present, create a build bundle and exit
+        -b/--build : if present, create a build bundle and serve it
         -o/--out   : optional custom output directory for the build
         --port     : port to run the Flask server on (default 8080)
 
@@ -218,8 +230,8 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         argparse.Namespace with parsed options.
     """
     parser = argparse.ArgumentParser(description="Serve static project or build static bundle.")
-    parser.add_argument("project_dir", help="Path to project directory (contains includes/, public/, src/, ...)")
-    parser.add_argument("-b", "--build", action="store_true", help="Create build-<project_dir> (or --out) instead of running server")
+    parser.add_argument("project_dir", nargs="?", default=".", help="Path to project directory (contains includes/, public/, src/, ...). Defaults to current directory if not specified.")
+    parser.add_argument("-b", "--build", action="store_true", help="Create build-<project_dir> (or --out) and serve it")
     parser.add_argument("-o", "--out", help="Optional output directory name for the build (overrides default build-<name>)")
     parser.add_argument("--port", type=int, default=8080, help="Port to run the Flask server on (default: 8080)")
     return parser.parse_args(argv)
@@ -240,16 +252,24 @@ def main(argv: Optional[list] = None) -> int:
         return 2
 
     if args.build:
-        # Build and exit
-        build_project(args.project_dir, out_dir=args.out)
-        project_basename = os.path.basename(os.path.normpath(args.project_dir))
-        build_dir = os.path.abspath(args.out) if args.out else os.path.abspath(f"build-{project_basename}")
-        app = create_build_app(build_dir)
+        # Build and serve the built website
         try:
+            build_dir = build_project(args.project_dir, out_dir=args.out)
+            print(f"\nBuild successful! Output directory: {build_dir}")
+            
+            # Start server to preview the build
+            app = create_build_app(build_dir)
+            print(f"Starting preview server on port {args.port}...")
+            print("Press Ctrl+C to stop the server.\n")
             # Note: in production, do not use Flask's built-in server.
             app.run(port=args.port)
         except KeyboardInterrupt:
-            print("Server interrupted (KeyboardInterrupt).")
+            print("\nServer interrupted (KeyboardInterrupt).")
+        except Exception as e:
+            print(f"Error during build: {e}", file=sys.stderr)
+            import traceback
+            traceback.print_exc()
+            return 1
         return 0
 
     # Otherwise, run the Flask development server for convenience.
