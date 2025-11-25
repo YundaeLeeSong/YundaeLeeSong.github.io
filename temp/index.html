@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Algorithm Docs — Language Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Prism.js for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-clike.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-java.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js" defer></script>
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-elevated: #111827;
+      --bg-card: #020617;
+      --bg-chip: #1f2937;
+      --fg: #e5e7eb;
+      --fg-muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+    }
+
+    [data-theme="light"] {
+      --bg: #f3f4f6;
+      --bg-elevated: #ffffff;
+      --bg-card: #ffffff;
+      --bg-chip: #e5e7eb;
+      --fg: #111827;
+      --fg-muted: #6b7280;
+      --accent: #0284c7;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --border-subtle: rgba(209, 213, 219, 1);
+      --shadow-soft: 0 18px 45px rgba(148, 163, 184, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #1f2937 0, var(--bg) 40%, #020617 100%);
+      color: var(--fg);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 1120px;
+      background: radial-gradient(circle at top, #1e293b 0, var(--bg-elevated) 45%, #020617 100%);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 16px 24px 12px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-chip {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 20% 0%, #38bdf8, #0ea5e9 42%, #0f172a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #e0f2fe;
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.55);
+      flex-shrink: 0;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title-highlight {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.24), transparent);
+      color: #e0f2fe;
+    }
+
+    .title-block p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--fg-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--fg-muted);
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.16), transparent);
+      white-space: nowrap;
+    }
+
+    .toggle-theme {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.7);
+      padding: 6px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--fg-muted);
+      cursor: pointer;
+      font-size: 0.8rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .toggle-theme span {
+      font-size: 1rem;
+    }
+
+    main {
+      display: flex;
+      flex-direction: row;
+      padding: 12px 18px 18px;
+      gap: 16px;
+      min-height: 0;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 220px;
+      border-radius: 16px;
+      padding: 10px 10px 12px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.6));
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .sidebar h2 {
+      font-size: 0.9rem;
+      margin: 0;
+      color: var(--fg-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .filter-chip {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: var(--bg-chip);
+      color: var(--fg-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.16s ease-out;
+    }
+
+    .filter-chip span {
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
+
+    .filter-chip[data-active="true"] {
+      border-color: var(--accent);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.32), rgba(15, 23, 42, 0.96));
+      color: #e0f2fe;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.25);
+    }
+
+    .filter-chip[data-active="true"] span {
+      opacity: 1;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: 0.72rem;
+      color: var(--fg-muted);
+      border-top: 1px dashed rgba(148, 163, 184, 0.5);
+      padding-top: 8px;
+    }
+
+    .sidebar-footer strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--fg);
+      font-size: 0.8rem;
+      outline: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .search-input::placeholder {
+      color: var(--fg-muted);
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #bae6fd;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      white-space: nowrap;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      padding-bottom: 6px;
+      overflow-y: auto;
+    }
+
+    .doc-card {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.35), rgba(15, 23, 42, 0.98));
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+
+    .doc-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 10% -10%, rgba(56, 189, 248, 0.32), transparent 60%);
+      opacity: 0.8;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .doc-card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .doc-main-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .doc-language-tag {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background: rgba(15, 23, 42, 0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--fg-muted);
+    }
+
+    .doc-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--fg-muted);
+    }
+
+    .doc-meta span {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.5);
+    }
+
+    .doc-description {
+      font-size: 0.78rem;
+      color: var(--fg-muted);
+      line-height: 1.4;
+    }
+
+    .doc-body {
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .doc-body-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--fg-muted);
+    }
+
+    .doc-body-header strong {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    .code-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .chip-small {
+      font-size: 0.68rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .btn-copy {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      padding: 3px 9px;
+      font-size: 0.7rem;
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--fg-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .btn-copy span {
+      font-size: 0.9rem;
+    }
+
+    pre {
+      margin: 4px 0 0;
+      border-radius: 10px;
+      max-height: 260px;
+      overflow: auto;
+      font-size: 0.75rem;
+      background: #020617;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    pre code {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .empty-state {
+      font-size: 0.8rem;
+      color: var(--fg-muted);
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    @media (max-width: 840px) {
+      main {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        order: -1;
+      }
+
+      header {
+        flex-wrap: wrap;
+      }
+
+      .title-block p {
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+      .app-shell {
+        border-radius: 16px;
+      }
+      header {
+        padding: 12px;
+      }
+      main {
+        padding: 10px 12px 12px;
+      }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+<div class="app-shell">
+  <header>
+    <div class="logo-chip">A</div>
+    <div class="title-block">
+      <h1>
+        Algorithm Library
+        <span class="title-highlight">Single-Page Docs</span>
+      </h1>
+      <p>Curated implementations grouped by programming language — perfect for your personal handbook.</p>
+    </div>
+    <div class="header-actions">
+      <div class="pill">Staircase Algorithm • v1.0</div>
+      <button class="toggle-theme" id="themeToggle" type="button">
+        <span>🌙</span>
+        Theme
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- LEFT SIDEBAR: language filters and quick info -->
+    <aside class="sidebar">
+      <h2>Languages</h2>
+      <div class="filter-bar" id="languageFilters">
+        <!-- data-lang="all" = show everything -->
+        <button class="filter-chip" data-lang="all" data-active="true">
+          All
+          <span>•</span>
+        </button>
+        <button class="filter-chip" data-lang="c">
+          C
+          <span>staircase.c</span>
+        </button>
+        <button class="filter-chip" data-lang="java">
+          Java
+          <span>StaircasePrinter.java</span>
+        </button>
+        <button class="filter-chip" data-lang="python">
+          Python
+          <span>staircase.py</span>
+        </button>
+        <!-- To add another language later:
+             <button class="filter-chip" data-lang="rust">Rust<span>…</span></button>
+        -->
+      </div>
+
+      <div class="sidebar-footer">
+        <strong>Tip:</strong> To add new algorithms, duplicate an existing card in the HTML and
+        change its <code>data-lang</code>, title, meta, and code.
+      </div>
+    </aside>
+
+    <!-- RIGHT PANEL: search + documentation cards -->
+    <section class="content">
+      <div class="search-row">
+        <input
+          id="searchInput"
+          class="search-input"
+          type="search"
+          placeholder="Search by file name, language, or notes…"
+        />
+        <div class="badge">3 entries</div>
+      </div>
+
+      <div class="cards" id="cardsContainer">
+        <!-- C IMPLEMENTATION -->
+        <article class="doc-card" data-lang="c" data-title="Staircase Algorithm in C staircase.c manual memory management malloc memset pointer arithmetic">
+          <div class="doc-card-inner">
+            <div class="doc-header">
+              <div>
+                <div class="doc-main-title">
+                  Staircase — C Implementation
+                  <span class="doc-language-tag">C</span>
+                </div>
+                <div class="doc-meta">
+                  <span>File: <strong>staircase.c</strong></span>
+                  <span>Style: Manual heap buffer / <code>malloc</code></span>
+                  <span>Topic: String construction, pointer arithmetic</span>
+                </div>
+              </div>
+            </div>
+            <p class="doc-description">
+              Prints a right-aligned staircase of <code>#</code> characters using a single
+              reusable heap-allocated buffer. Each row rewrites the buffer via
+              <code>memset</code> and pointer arithmetic, then prints it.
+            </p>
+            <div class="doc-body">
+              <div class="doc-body-header">
+                <div>
+                  <strong>Core idea:</strong>
+                  allocate once, then overwrite the same buffer for each row.
+                </div>
+                <div class="code-actions">
+                  <span class="chip-small">O(n²) characters printed</span>
+                  <button class="btn-copy" type="button" data-copy-target="code-c">
+                    <span>📋</span> Copy code
+                  </button>
+                </div>
+              </div>
+              <pre><code id="code-c" class="language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;  // Required for malloc, free
+#include &lt;string.h&gt;  // Required for memset
+
+/**
+ * Prints a right-aligned staircase of '#' characters of height n.
+ * This function manually manages memory to construct the string buffer
+ * for each row. It allocates memory once, but rewrites the buffer contents
+ * on every iteration using pointer arithmetic.
+ *
+ * @param n The height and width of the staircase.
+ */
+void staircase(int n) {
+    // Allocate memory on the heap for the string line.
+    // Size is n (for characters) + 1 (for the null terminator '\0').
+    char* rowStr = (char*)malloc((n + 1) * sizeof(char));
+
+    // Safety check: if malloc fails (returns NULL), exit to prevent crash.
+    if (rowStr == NULL) return;
+
+    // Set the null terminator at the very end of the buffer.
+    // This marks the end of the string for printf.
+    rowStr[n] = '\0';
+
+    for (int row = 1; row &lt;= n; row++) {
+        int spaces = n - row; // Number of spaces needed for alignment
+        int hashes = row;     // Number of hash marks to print
+
+        // 1. Fill the beginning of the buffer with spaces.
+        if (spaces &gt; 0) {
+            memset(rowStr, ' ', spaces);
+        }
+
+        // 2. Fill the rest of the buffer with hashes.
+        // Pointer arithmetic: 'rowStr + spaces' calculates the memory address
+        // where the spaces end, so we begin writing hashes exactly there.
+        memset(rowStr + spaces, '#', hashes);
+
+        // Print the constructed string row.
+        printf("%s\n", rowStr);
+    }
+
+    // Free the allocated memory to prevent memory leaks.
+    free(rowStr);
+}
+
+int main(void) {
+    // Test the function with size 6
+    staircase(6);
+    return 0;
+}
+              </code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- JAVA IMPLEMENTATION -->
+        <article class="doc-card" data-lang="java" data-title="Staircase Algorithm in Java StaircasePrinter.java String.repeat Java 11 right-aligned">
+          <div class="doc-card-inner">
+            <div class="doc-header">
+              <div>
+                <div class="doc-main-title">
+                  Staircase — Java Implementation
+                  <span class="doc-language-tag">Java</span>
+                </div>
+                <div class="doc-meta">
+                  <span>File: <strong>StaircasePrinter.java</strong></span>
+                  <span>Requires: Java 11+ (<code>String.repeat</code>)</span>
+                  <span>Topic: Clean, idiomatic string usage</span>
+                </div>
+              </div>
+            </div>
+            <p class="doc-description">
+              Uses <code>String.repeat</code> to generate padding and staircase steps without
+              nested loops. Simple, readable, and easy to adapt to other characters or output sinks.
+            </p>
+            <div class="doc-body">
+              <div class="doc-body-header">
+                <div>
+                  <strong>Core idea:</strong>
+                  construct each row as <code>" ".repeat(spaces) + "#".repeat(row)</code>.
+                </div>
+                <div class="code-actions">
+                  <span class="chip-small">Console output</span>
+                  <button class="btn-copy" type="button" data-copy-target="code-java">
+                    <span>📋</span> Copy code
+                  </button>
+                </div>
+              </div>
+              <pre><code id="code-java" class="language-java">
+public class StaircasePrinter {
+
+    /**
+     * Prints a right-aligned staircase of '#' symbols to the standard output.
+     * &lt;p&gt;
+     * This method utilizes the String.repeat() method (Java 11+) for efficient
+     * character repetition without nested loops.
+     * &lt;/p&gt;
+     *
+     * @param n the height of the staircase; must be greater than 0.
+     */
+    public static void staircase(int n) {
+        for (int row = 1; row &lt;= n; row++) {
+            // Calculate the number of spaces required for right alignment
+            int spacesCount = n - row;
+
+            // Construct the string components
+            // " ".repeat(count) creates a string of 'count' spaces efficiently
+            String spaces = " ".repeat(spacesCount);
+            String hashes = "#".repeat(row);
+
+            // Combine and print the row
+            System.out.println(spaces + hashes);
+        }
+    }
+
+    /**
+     * Main method to execute the staircase function.
+     *
+     * @param args Command line arguments (not used).
+     */
+    public static void main(String[] args) {
+        // Test the function with size 6
+        staircase(6);
+    }
+}
+              </code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- PYTHON IMPLEMENTATION -->
+        <article class="doc-card" data-lang="python" data-title="Staircase Algorithm in Python staircase.py string multiplication">
+          <div class="doc-card-inner">
+            <div class="doc-header">
+              <div>
+                <div class="doc-main-title">
+                  Staircase — Python Implementation
+                  <span class="doc-language-tag">Python</span>
+                </div>
+                <div class="doc-meta">
+                  <span>File: <strong>staircase.py</strong></span>
+                  <span>Style: Pythonic string multiplication</span>
+                  <span>Topic: Loop + f-strings</span>
+                </div>
+              </div>
+            </div>
+            <p class="doc-description">
+              Leverages Python’s string multiplication to avoid inner loops:
+              each row is built from <code>" " * spaces</code> and <code>"#" * row</code>, then printed.
+              Minimal and idiomatic.
+            </p>
+            <div class="doc-body">
+              <div class="doc-body-header">
+                <div>
+                  <strong>Core idea:</strong>
+                  string multiplication instead of manual concatenation in a loop.
+                </div>
+                <div class="code-actions">
+                  <span class="chip-small">Python ≥ 3.x</span>
+                  <button class="btn-copy" type="button" data-copy-target="code-python">
+                    <span>📋</span> Copy code
+                  </button>
+                </div>
+              </div>
+              <pre><code id="code-python" class="language-python">
+def staircase(n: int) -&gt; None:
+    """
+    Prints a right-aligned staircase of '#' characters.
+
+    This function utilizes Python's string multiplication feature
+    to generate the rows without explicit inner loops.
+
+    Args:
+        n (int): The size (height and width) of the staircase.
+    """
+    # Loop from 1 to n (inclusive)
+    for row in range(1, n + 1):
+        # Calculate padding spaces
+        # Python allows string multiplication: " " * 3 results in "   "
+        spaces_count = n - row
+
+        # Create the parts of the string
+        spaces = " " * spaces_count
+        hashes = "#" * row
+
+        # Concatenate and print using an f-string
+        print(f"{spaces}{hashes}")
+
+
+if __name__ == "__main__":
+    # Test the function with size 6
+    staircase(6)
+              </code></pre>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="empty-state" id="emptyState" style="display: none;">
+        No entries match your filters/search. Try clearing the search box or switching language filters.
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // THEME TOGGLE
+  (function () {
+    const root = document.body;
+    const toggle = document.getElementById("themeToggle");
+
+    function setTheme(theme) {
+      root.setAttribute("data-theme", theme);
+      toggle.querySelector("span").textContent = theme === "dark" ? "🌙" : "☀️";
+      try {
+        localStorage.setItem("algo-docs-theme", theme);
+      } catch (e) {
+        // ignore storage errors
+      }
+    }
+
+    // Initialize from localStorage if possible
+    (function initTheme() {
+      let saved = null;
+      try {
+        saved = localStorage.getItem("algo-docs-theme");
+      } catch (e) {}
+      if (saved === "light" || saved === "dark") {
+        setTheme(saved);
+      } else {
+        setTheme("dark");
+      }
+    })();
+
+    toggle.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "dark";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+  })();
+
+  // LANGUAGE FILTERS + SEARCH
+  (function () {
+    const cardsContainer = document.getElementById("cardsContainer");
+    const cards = Array.from(cardsContainer.querySelectorAll(".doc-card"));
+    const filters = Array.from(
+      document.querySelectorAll(".filter-chip")
+    );
+    const searchInput = document.getElementById("searchInput");
+    const emptyState = document.getElementById("emptyState");
+
+    let activeLang = "all";
+    let searchQuery = "";
+
+    function updateVisibleCards() {
+      let visibleCount = 0;
+      const q = searchQuery.trim().toLowerCase();
+
+      cards.forEach((card) => {
+        const lang = card.getAttribute("data-lang");
+        const title = (card.getAttribute("data-title") || "").toLowerCase();
+
+        const langMatches = activeLang === "all" || lang === activeLang;
+        const textMatches = !q || title.includes(q);
+
+        const show = langMatches && textMatches;
+        card.style.display = show ? "" : "none";
+
+        if (show) visibleCount++;
+      });
+
+      emptyState.style.display = visibleCount === 0 ? "" : "none";
+    }
+
+    filters.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const lang = chip.getAttribute("data-lang");
+        activeLang = lang;
+
+        filters.forEach((c) =>
+          c.setAttribute(
+            "data-active",
+            c === chip ? "true" : "false"
+          )
+        );
+
+        updateVisibleCards();
+      });
+    });
+
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      updateVisibleCards();
+    });
+
+    updateVisibleCards();
+  })();
+
+  // COPY CODE BUTTONS
+  (function () {
+    const buttons = document.querySelectorAll(".btn-copy");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const targetId = btn.getAttribute("data-copy-target");
+        const codeEl = document.getElementById(targetId);
+        if (!codeEl) return;
+
+        const text = codeEl.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = btn.innerHTML;
+          btn.innerHTML = "<span>✅</span> Copied";
+          setTimeout(() => {
+            btn.innerHTML = original;
+          }, 1500);
+        } catch (e) {
+          alert("Clipboard copy not supported in this browser.");
+        }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
