@@ -70,8 +70,15 @@
 <body>
   <div class="container">
     <h1>📄 PDF Documents</h1>
-    <div id="content">
+    <div id="pdf-content">
       <div class="loading">Loading PDF files...</div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 20px;">
+    <h1>📝 Text Documents</h1>
+    <div id="txt-content">
+      <div class="loading">Loading text files...</div>
     </div>
   </div>
 
@@ -79,68 +86,79 @@
     <button type="submit">Submit and Go</button>
   </form>
 
-
   <script>
-    // refresh page on every focus
+    // Refresh page on focus to ensure list is up to date if files changed
     function refreshOnFocus() {
       window.addEventListener('focus', () => {
-        window.location.reload();
+        // Optional: Could be smarter about this, but simple reload works
+        // window.location.reload(); 
       });
     }
     refreshOnFocus();
-  </script>
 
-  <script>
-    // Load PDF files directly
-    function loadPDFs() {
-      const contentDiv = document.getElementById('content');
+    async function fetchAndRender(url, elementId, typeName) {
+      const contentDiv = document.getElementById(elementId);
       
-      // List of PDF files in the same directory
-      const pdfFiles = [
-        'resume.pdf',
-        '1810-membership-PhiThetaKappa.pdf',
-        '1911-HonorsList.pdf',
-        '2104-membership-NTHS.pdf',
-        '2105-GraduateAward-ComputerScience.pdf',
-        '2105-GraduateAward-JavaProgrammer.pdf',
-        '2105-membership-Ambassador.pdf',
-        '2105-MeritAward.pdf',
-        'project2405-server_derbyDB-docs.pdf',
-      ];
-      
-      if (pdfFiles.length === 0) {
-        contentDiv.innerHTML = '<div class="error">No PDF files found.</div>';
-        return;
+      try {
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+           // If file doesn't exist yet (e.g. before first run), just handle gracefully
+           if(response.status === 404) {
+             contentDiv.innerHTML = `<div class="error">List not found.</div>`;
+             return;
+           }
+           throw new Error(`Failed to load: ${response.statusText}`);
+        }
+
+        const files = await response.json();
+        
+        if (!Array.isArray(files) || files.length === 0) {
+          contentDiv.innerHTML = `<div class="error">No ${typeName} files found.</div>`;
+          return;
+        }
+        
+        const list = document.createElement('ul');
+        list.className = 'pdf-list'; // reusing same style class
+        
+        files.forEach(filename => {
+          const item = document.createElement('li');
+          item.className = 'pdf-item';
+          
+          const link = document.createElement('a');
+          link.href = filename;
+          link.className = 'pdf-link';
+          // Prettify filename
+          const ext = filename.split('.').pop();
+          link.textContent = filename.replace(`.${ext}`, '').replace(/[-_]/g, ' ');
+          link.target = '_blank';
+          
+          const info = document.createElement('div');
+          info.className = 'pdf-info';
+          info.textContent = `Click to view: ${filename}`;
+          
+          item.appendChild(link);
+          item.appendChild(info);
+          list.appendChild(item);
+        });
+        
+        contentDiv.innerHTML = '';
+        contentDiv.appendChild(list);
+
+      } catch (error) {
+        console.error(`Error loading ${typeName}:`, error);
+        contentDiv.innerHTML = `<div class="error">
+          <p>Error loading ${typeName}.</p>
+          <small>${error.message}</small>
+        </div>`;
       }
-      
-      const pdfList = document.createElement('ul');
-      pdfList.className = 'pdf-list';
-      
-      pdfFiles.forEach(filename => {
-        const pdfItem = document.createElement('li');
-        pdfItem.className = 'pdf-item';
-        
-        const pdfLink = document.createElement('a');
-        pdfLink.href = filename;
-        pdfLink.className = 'pdf-link';
-        pdfLink.textContent = filename.replace('.pdf', '').replace(/-/g, ' ');
-        pdfLink.target = '_blank';
-        
-        const pdfInfo = document.createElement('div');
-        pdfInfo.className = 'pdf-info';
-        pdfInfo.textContent = `Click to view: ${filename}`;
-        
-        pdfItem.appendChild(pdfLink);
-        pdfItem.appendChild(pdfInfo);
-        pdfList.appendChild(pdfItem);
-      });
-      
-      contentDiv.innerHTML = '';
-      contentDiv.appendChild(pdfList);
     }
-    
-    // Load PDFs when page loads
-    document.addEventListener('DOMContentLoaded', loadPDFs);
+
+    // Load files when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAndRender('files.json', 'pdf-content', 'PDF');
+      fetchAndRender('txt_files.json', 'txt-content', 'Text');
+    });
   </script>
 </body>
 </html>

@@ -1,0 +1,50 @@
+# GitHub Actions CI/CD Pipeline Documentation
+
+## Overview
+This repository uses GitHub Actions to automatically update the lists of documents (both PDF and Text files) displayed on the website (`index.html`). This automation removes the need to manually update HTML code whenever a new file is added.
+
+## How it Works
+1.  **Trigger:** The workflow is triggered automatically whenever you push changes to the `main` or `master` branch. specifically when:
+    *   New `.pdf` or `.txt` files are added or removed.
+    *   The generation scripts (`generate_file_list.js`, `generate_txt_list.py`) are modified.
+    *   The workflow file itself is modified.
+2.  **Process:**
+    *   The Action checks out your code on a Linux server.
+    *   It installs Node.js and Python.
+    *   It executes `node generate_file_list.js`. This script scans for `.pdf` files and updates `files.json`.
+    *   It executes `python generate_txt_list.py`. This script scans for `.txt` files and updates `txt_files.json`.
+    *   If any JSON registry files have changed, the Action commits these changes and pushes them back to your repository.
+3.  **Result:** The `index.html` page uses JavaScript to fetch `files.json` and `txt_files.json` and dynamically renders separate lists for PDFs and Text documents.
+
+## Instructions to Start Automation
+
+### 1. Prerequisites
+Ensure you have the following files in your repository (already created):
+*   `generate_file_list.js`: The Node.js logic to scan PDF files.
+*   `generate_txt_list.py`: The Python logic to scan Text files.
+*   `.github/workflows/update_file_list.yml`: The automation configuration.
+*   `index.html`: The web page configured to read both JSON registries.
+
+### 2. How to Add a New Document
+To publish a new file, simply upload it.
+
+**Using Git Command Line:**
+1.  Add your file (PDF or TXT) to the folder.
+2.  Run:
+    ```bash
+    git add your-new-document.pdf another-note.txt
+    git commit -m "Add new documents"
+    git push origin main
+    ```
+3.  Wait about 30-60 seconds. GitHub Actions will run, update the JSON lists, and your website will show the new files automatically.
+
+**Using GitHub Web Interface:**
+1.  Go to your repository on GitHub.
+2.  Click "Add file" -> "Upload files".
+3.  Drag and drop your files.
+4.  Commit the change.
+5.  The automation handles the rest.
+
+### 3. Troubleshooting
+*   **Action Permission Error:** If the action fails to push, go to your repository Settings > Actions > General > Workflow permissions, and ensure "Read and write permissions" is selected.
+*   **File Not Showing:** Check the "Actions" tab in your repository to see if the `Update File List` workflow passed successfully. Verify that `files.json` and `txt_files.json` exist in the repo.

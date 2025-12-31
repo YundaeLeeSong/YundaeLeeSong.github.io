@@ -1,0 +1,45 @@
+name: Update File List
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '**.pdf'
+      - '**.txt'
+      - 'generate_file_list.js'
+      - 'generate_txt_list.py'
+      - '.github/workflows/update_file_list.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Generate PDF list (Node.js)
+      run: node generate_file_list.js
+
+    - name: Generate TXT list (Python)
+      run: python generate_txt_list.py
+
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "chore: update file registries (PDF & TXT)"
+        file_pattern: "files.json txt_files.json"
