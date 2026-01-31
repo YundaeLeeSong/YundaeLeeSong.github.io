@@ -1,27 +1,37 @@
 const fs = require('fs');
 const path = require('path');
 
-// Configuration
+/**
+ * Configuration
+ */
 // 1. Define the base project directory
 const rootDir = __dirname;
 
-// 2. Define the target directory (e.g., project_root/docs)
-const docsDir = path.resolve(rootDir, 'docs');
+// 2. Define the target directory - renamed to 'directoryPath' for consistency below
+const directoryPath = path.resolve(rootDir, 'docs');
 
-// 3. Define the output file name ONLY (no path info here)
-const fileName = 'files.json';
+// 3. Define the output file name
+const outputFileName = 'files.json';
 
-// 4. Combine them into one clean absolute path
-// path.resolve ensures we don't accidentally double-up the path segments.
-const finalOutputPath = path.join(docsDir, fileName);
+// 4. Combine into one absolute path for the output
+const finalOutputPath = path.join(directoryPath, outputFileName);
 
 const fileExtension = '.pdf';
 
-// Read directory
+/**
+ * Main Execution
+ */
+
+// Ensure the directory exists before reading
+if (!fs.existsSync(directoryPath)) {
+  fs.mkdirSync(directoryPath, { recursive: true });
+}
+
+// Read directory using the corrected variable: directoryPath
 fs.readdir(directoryPath, (err, files) => {
   if (err) {
     return console.error('Unable to scan directory: ' + err);
-  } 
+  }
 
   // Filter for PDF files
   const pdfFiles = files.filter(file => {
@@ -33,13 +43,14 @@ fs.readdir(directoryPath, (err, files) => {
 
   // Write to JSON file
   const jsonContent = JSON.stringify(pdfFiles, null, 2);
-  
-  fs.writeFile(path.join(directoryPath, outputFile), jsonContent, 'utf8', (err) => {
+
+  // Use the absolute 'finalOutputPath' directly to avoid ENOENT errors
+  fs.writeFile(finalOutputPath, jsonContent, 'utf8', (err) => {
     if (err) {
       console.error('An error occurred while writing JSON Object to File.', err);
       process.exit(1);
     }
-    
-    console.log(`${outputFile} has been saved with ${pdfFiles.length} files.`);
+
+    console.log(`${outputFileName} has been saved with ${pdfFiles.length} files.`);
   });
 });
