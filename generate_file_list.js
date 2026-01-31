@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const directoryPath = __dirname / 'docs';
+// // Use path.join to safely combine directory segments.
+const directoryPath = path.join(__dirname, 'docs');
 const outputFile = 'docs/files.json';
 const fileExtension = '.pdf';
 
