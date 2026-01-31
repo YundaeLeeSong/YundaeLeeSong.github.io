@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const directoryPath = __dirname;
-const outputFile = 'files.json';
+const directoryPath = __dirname / 'docs';
+const outputFile = 'docs/files.json';
 const fileExtension = '.pdf';
 
 // Read directory
