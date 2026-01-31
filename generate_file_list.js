@@ -4,53 +4,56 @@ const path = require('path');
 /**
  * Configuration
  */
-// 1. Define the base project directory
-const rootDir = __dirname;
+// Root is where this script lives
+const rootDir = __dirname; 
 
-// 2. Define the target directory - renamed to 'directoryPath' for consistency below
-const directoryPath = path.resolve(rootDir, 'docs');
+// Target folder to look for PDFs (ProjectRoot/docs)
+const targetDir = path.resolve(rootDir, 'docs');
 
-// 3. Define the output file name
+// The name of the file we want to create
 const outputFileName = 'files.json';
 
-// 4. Combine into one absolute path for the output
-const finalOutputPath = path.join(directoryPath, outputFileName);
+// The absolute path where the JSON will be saved (ProjectRoot/docs/files.json)
+const finalOutputPath = path.join(targetDir, outputFileName);
 
 const fileExtension = '.pdf';
 
 /**
- * Main Execution
+ * Logic Execution
  */
 
-// Ensure the directory exists before reading
-if (!fs.existsSync(directoryPath)) {
-  fs.mkdirSync(directoryPath, { recursive: true });
+// 1. Check if the directory exists
+if (!fs.existsSync(targetDir)) {
+    console.error(`Directory not found: ${targetDir}`);
+    // If the directory doesn't exist, we can't look up PDFs
+    process.exit(1);
 }
 
-// Read directory using the corrected variable: directoryPath
-fs.readdir(directoryPath, (err, files) => {
-  if (err) {
-    return console.error('Unable to scan directory: ' + err);
-  }
-
-  // Filter for PDF files
-  const pdfFiles = files.filter(file => {
-    return path.extname(file).toLowerCase() === fileExtension;
-  });
-
-  // Sort files for consistent display order
-  pdfFiles.sort();
-
-  // Write to JSON file
-  const jsonContent = JSON.stringify(pdfFiles, null, 2);
-
-  // Use the absolute 'finalOutputPath' directly to avoid ENOENT errors
-  fs.writeFile(finalOutputPath, jsonContent, 'utf8', (err) => {
+// 2. Read the target directory
+fs.readdir(targetDir, (err, files) => {
     if (err) {
-      console.error('An error occurred while writing JSON Object to File.', err);
-      process.exit(1);
+        return console.error('Unable to scan directory: ' + err);
     }
 
-    console.log(`${outputFileName} has been saved with ${pdfFiles.length} files.`);
-  });
+    // 3. Filter for PDF files only
+    const pdfFiles = files.filter(file => {
+        return path.extname(file).toLowerCase() === fileExtension;
+    });
+
+    // 4. Sort alphabetically for a clean list
+    pdfFiles.sort();
+
+    // 5. Convert array to JSON string
+    const jsonContent = JSON.stringify(pdfFiles, null, 2);
+
+    // 6. Write the file to the target directory
+    fs.writeFile(finalOutputPath, jsonContent, 'utf8', (err) => {
+        if (err) {
+            console.error('An error occurred while writing JSON Object to File.', err);
+            process.exit(1);
+        }
+
+        console.log(`Success: ${outputFileName} saved in ${targetDir}`);
+        console.log(`Found ${pdfFiles.length} PDF files.`);
+    });
 });
