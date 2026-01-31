@@ -4,7 +4,7 @@ const path = require('path');
 // Configuration
 // // Use path.join to safely combine directory segments.
 const directoryPath = path.join(__dirname, 'docs');
-const outputFile = 'docs/files.json';
+const outputFile = path.join(directoryPath, 'files.json');
 const fileExtension = '.pdf';
 
 // Read directory
