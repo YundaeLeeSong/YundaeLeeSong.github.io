@@ -100,7 +100,8 @@
       const contentDiv = document.getElementById(elementId);
       
       try {
-        const response = await fetch(url);
+        // Add cache busting
+        const response = await fetch(`${url}?t=${new Date().getTime()}`);
         
         if (!response.ok) {
            // If file doesn't exist yet (e.g. before first run), just handle gracefully
