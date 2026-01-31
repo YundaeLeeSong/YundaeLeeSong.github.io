@@ -2,9 +2,19 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-// // Use path.join to safely combine directory segments.
-const directoryPath = path.join(__dirname, 'docs');
-const outputFile = path.join(directoryPath, 'files.json');
+// 1. Define the base project directory
+const rootDir = __dirname;
+
+// 2. Define the target directory (e.g., project_root/docs)
+const docsDir = path.resolve(rootDir, 'docs');
+
+// 3. Define the output file name ONLY (no path info here)
+const fileName = 'files.json';
+
+// 4. Combine them into one clean absolute path
+// path.resolve ensures we don't accidentally double-up the path segments.
+const finalOutputPath = path.join(docsDir, fileName);
+
 const fileExtension = '.pdf';
 
 // Read directory
