@@ -7,8 +7,8 @@ const path = require('path');
 // Root is where this script lives
 const rootDir = __dirname; 
 
-// Target folder to look for PDFs (ProjectRoot/docs)
-const targetDir = path.resolve(rootDir, 'docs');
+// Target folder to look for PDFs (current directory)
+const targetDir = rootDir;
 
 // The name of the file we want to create
 const outputFileName = 'files.json';

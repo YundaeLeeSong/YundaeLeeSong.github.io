@@ -5,7 +5,8 @@ import sys
 def generate_txt_list():
     # Use absolute path to ensure script works regardless of CWD
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    docs_dir = os.path.join(base_dir, 'docs')
+    # Target folder to look for TXTs (current directory)
+    docs_dir = base_dir
     
     if not os.path.exists(docs_dir):
         print(f"Directory not found: {docs_dir}")

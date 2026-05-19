@@ -6,11 +6,8 @@ on:
       - main
       - master
     paths:
-      - '**.pdf'
-      - '**.txt'
-      - 'generate-pdf-index.js'
-      - 'generate_txt_index.py'
-      - '.github/workflows/commit-file-index.yml'
+      - 'docs/references/**'
+      - '.github/workflows/push.yml'
 
 jobs:
   build:
@@ -33,13 +30,13 @@ jobs:
         python-version: '3.x'
 
     - name: Generate PDF list (Node.js)
-      run: node generate-pdf-index.js
+      run: node docs/references/generate-pdf-index.js
 
     - name: Generate TXT list (Python)
-      run: python generate_txt_index.py
+      run: python docs/references/generate_txt_index.py
 
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "chore: update file registries (PDF & TXT)"
-        file_pattern: "docs/files.json docs/txt_files.json"
+        file_pattern: "docs/references/files.json docs/references/txt_files.json"

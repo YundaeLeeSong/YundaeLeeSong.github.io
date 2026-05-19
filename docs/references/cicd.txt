@@ -1,0 +1,43 @@
+# GitHub Actions CI/CD Pipeline Documentation
+
+## Overview
+This repository uses GitHub Actions to automatically update the lists of documents (both PDF and Text files) displayed on the website (`docs/references/index.html`). This automation removes the need to manually update HTML code whenever a new file is added to the `docs/references/` directory.
+
+## How it Works
+1.  **Trigger:** The workflow is triggered automatically whenever you push changes to the `main` or `master` branch, specifically when:
+    *   New `.pdf` or `.txt` files are added or removed within `docs/references/`.
+    *   The generation scripts (`docs/references/generate-pdf-index.js`, `docs/references/generate_txt_index.py`) are modified.
+    *   The workflow file itself (`.github/workflows/push.yml`) is modified.
+2.  **Process:**
+    *   The Action checks out your code on a Linux server.
+    *   It installs Node.js and Python.
+    *   It executes `node docs/references/generate-pdf-index.js`. This script scans for `.pdf` files in `docs/references/` and updates `docs/references/files.json`.
+    *   It executes `python docs/references/generate_txt_index.py`. This script scans for `.txt` files in `docs/references/` and updates `docs/references/txt_files.json`.
+    *   If any JSON registry files have changed, the Action commits these changes and pushes them back to your repository.
+3.  **Result:** The `docs/references/index.html` page uses JavaScript to fetch `files.json` and `txt_files.json` (within the same directory) and dynamically renders separate lists for PDFs and Text documents.
+
+## Instructions to Start Automation
+
+### 1. Prerequisites
+Ensure you have the following files in your repository:
+*   `docs/references/generate-pdf-index.js`: The Node.js logic to scan PDF files.
+*   `docs/references/generate_txt_index.py`: The Python logic to scan Text files.
+*   `.github/workflows/push.yml`: The automation configuration.
+*   `docs/references/index.html`: The web page configured to read both JSON registries.
+
+### 2. How to Add a New Document
+To publish a new file, simply upload it to the `docs/references/` folder.
+
+**Using Git Command Line:**
+1.  Add your file (PDF or TXT) to the `docs/references/` folder.
+2.  Run:
+    ```bash
+    git add docs/references/your-new-document.pdf docs/references/another-note.txt
+    git commit -m "Add new documents"
+    git push origin main
+    ```
+3.  Wait about 30-60 seconds. GitHub Actions will run, update the JSON lists, and your website will show the new files automatically.
+
+### 3. Troubleshooting
+*   **Action Permission Error:** If the action fails to push, go to your repository Settings > Actions > General > Workflow permissions, and ensure "Read and write permissions" is selected.
+*   **File Not Showing:** Check the "Actions" tab in your repository to see if the workflow passed successfully. Verify that `files.json` and `txt_files.json` exist in `docs/references/`.
