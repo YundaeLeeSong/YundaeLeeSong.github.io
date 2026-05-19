@@ -13,7 +13,7 @@ const targetDir = rootDir;
 // The name of the file we want to create
 const outputFileName = 'files.json';
 
-// The absolute path where the JSON will be saved (ProjectRoot/docs/files.json)
+// The absolute path where the JSON will be saved (ProjectRoot/docs/references/files.json)
 const finalOutputPath = path.join(targetDir, outputFileName);
 
 const fileExtension = '.pdf';
