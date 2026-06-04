@@ -1,4 +1,4 @@
-# --- Generated from ./.gitignores on Mon May 11 23:01:13 2026 ---
+# --- Generated from ./.gitignores on Thu May 28 21:22:36 2026 ---
 
 #############################################
 # A.gitignore
@@ -19,6 +19,7 @@ python-lang*/
 
 log*/
 playwright*/
+h2/
 
 ################################################################
 # General Ignores (Large Media Files & Common File Types)
@@ -3951,10 +3952,16 @@ ipython_config.py
 
 # pixi
 #   Similar to Pipfile.lock, it is generally recommended to include pixi.lock in version control.
-# pixi.lock
+pixi.lock
 #   Pixi creates a virtual environment in the .pixi directory, just like venv module creates one
 #   in the .venv directory. It is recommended not to include this directory in version control.
 .pixi
+
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/

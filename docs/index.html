@@ -24,16 +24,6 @@
       .resume-carousel .carousel-item {
         width: 100%;
       }
-      .resume-carousel .carousel-item {
-        border: 1px solid rgba(33, 37, 41, 0.14);
-        border-radius: 0.5rem;
-        padding: 1.25rem 1.5rem;
-        background-color: #fff;
-      }
-      .resume-carousel .carousel-item.active {
-        border-color: rgba(13, 110, 253, 0.4);
-        box-shadow: 0 0 0 1px rgba(13, 110, 253, 0.08);
-      }
       .resume-carousel .carousel-indicators {
         position: relative;
         margin-bottom: 1rem;
@@ -54,18 +44,137 @@
           padding: 0 2rem;
         }
       }
+      .card[id] {
+        scroll-margin-top: 1rem;
+      }
+      @media (max-width: 991.98px) {
+        .card[id] {
+          scroll-margin-top: 4.5rem;
+        }
+      }
+      .card-header.sticky-top {
+        z-index: 1010;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (min-width: 992px) {
+        .portfolio-sidebar {
+          top: 1rem;
+        }
+      }
+      .portfolio-roles .badge {
+        font-size: 0.7rem;
+        font-weight: 500;
+        line-height: 1.35;
+        white-space: normal;
+        text-align: start;
+      }
     </style>
   </head>
-  <body class="bg-light text-dark" style="font-family: 'Poppins', sans-serif;">
-    <div class="container-fluid py-5 px-lg-5 px-3">
+  <body class="bg-body-secondary" style="font-family: 'Poppins', sans-serif;" data-bs-spy="scroll" data-bs-target="#portfolioNav" data-bs-offset="56" data-bs-smooth-scroll="true" tabindex="0">
+    <div class="container-fluid px-3 px-lg-4 py-4 py-lg-5">
+      <div class="row g-4">
+
+        <!-- Mobile: open section menu -->
+        <div class="col-12 d-lg-none">
+          <nav class="navbar navbar-dark bg-dark rounded shadow-sm px-3 py-2" aria-label="Portfolio menu">
+            <a class="portfolio-brand navbar-brand fs-5 fw-semibold mb-0 py-0" href="#profile">Jaehoon Song</a>
+            <button class="navbar-toggler ms-auto border-0 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#portfolioSidebar" aria-controls="portfolioSidebar" aria-label="Open section navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Desktop: left sidebar (primary navigation + connect) -->
+        <aside class="col-lg-2 col-xl-2 d-none d-lg-block" aria-label="Section navigation">
+          <div class="bg-dark rounded shadow-sm sticky-top portfolio-sidebar" data-bs-theme="dark">
+            <nav id="portfolioNav" class="nav nav-pills flex-column gap-1 p-3" aria-label="On this page">
+              <p class="portfolio-brand fs-5 fw-semibold text-white mb-2 px-2 lh-sm">Jaehoon Song</p>
+              <a class="nav-link" href="#profile">Profile</a>
+              <a class="nav-link" href="#education">Education</a>
+              <a class="nav-link" href="#work">Work Experience</a>
+              <a class="nav-link" href="#projects">Projects</a>
+              <a class="nav-link" href="#other">Other Experiences</a>
+            </nav>
+            <div class="px-3 pb-3 pt-2 border-top border-secondary">
+              <div class="portfolio-roles rounded border border-light border-opacity-25 bg-black bg-opacity-25 p-2 mb-3" role="region" aria-labelledby="rolesHeadingDesktop">
+                <div class="d-flex align-items-center gap-2 mb-2 pb-2 border-bottom border-light border-opacity-10" id="rolesHeadingDesktop">
+                  <i class="fa-solid fa-briefcase text-white-50" aria-hidden="true"></i>
+                  <span class="small fw-semibold text-white mb-0">Open to roles</span>
+                </div>
+                <div class="d-grid gap-1">
+                  <span class="badge rounded-pill text-bg-secondary">Full-stack engineer</span>
+                  <span class="badge rounded-pill text-bg-secondary">Backend engineer</span>
+                  <span class="badge rounded-pill text-bg-secondary">Application developer</span>
+                  <span class="badge rounded-pill text-bg-secondary">Java · Spring Boot developer</span>
+                  <!-- <span class="badge rounded-pill text-bg-secondary">Platform engineer</span> -->
+                </div>
+              </div>
+              <div class="small text-white-50 text-uppercase mb-2">Connect</div>
+              <div class="d-flex flex-column gap-1 small mb-2">
+                <a href="mailto:jsong421@gatech.edu" class="link-light link-underline-opacity-0 link-underline-opacity-75-hover"><i class="fa-solid fa-envelope me-2" style="width: 1rem; text-align: center;" aria-hidden="true"></i>Email</a>
+                <a href="tel:+14703508926" class="link-light link-underline-opacity-0 link-underline-opacity-75-hover"><i class="fa-solid fa-phone me-2" style="width: 1rem; text-align: center;" aria-hidden="true"></i>470-350-8926</a>
+                <a href="https://www.linkedin.com/in/jaehoon-song-847422233/" target="_blank" rel="noopener noreferrer" class="link-light link-underline-opacity-0 link-underline-opacity-75-hover"><i class="fa-brands fa-linkedin me-2" style="width: 1rem; text-align: center;" aria-hidden="true"></i>LinkedIn</a>
+                <a href="https://github.com/YundaeLeeSong" target="_blank" rel="noopener noreferrer" class="link-light link-underline-opacity-0 link-underline-opacity-75-hover fw-medium" title="YundaeLeeSong — primary profile"><i class="fa-brands fa-github me-2" style="width: 1rem; text-align: center;" aria-hidden="true"></i>YundaeLeeSong</a>
+                <!-- <a href="https://github.com/JaehoonSong12" target="_blank" rel="noopener noreferrer" class="link-light link-underline-opacity-0 link-underline-opacity-50 text-white-50" title="JaehoonSong12"><i class="fa-brands fa-github me-2" style="width: 1rem; text-align: center;" aria-hidden="true"></i>JaehoonSong12</a> -->
+              </div>
+              <!-- <div class="small text-white-50 mb-2"><i class="fa-solid fa-location-dot me-2" aria-hidden="true"></i>Suwanee, GA</div> -->
+              <a href="https://yundaeleesong.github.io/references/cv-JaehoonSong.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light btn-sm w-100"><i class="fa-solid fa-file-pdf me-2" aria-hidden="true"></i>Download résumé</a>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Mobile: offcanvas section menu -->
+        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="portfolioSidebar" aria-labelledby="portfolioSidebarLabel">
+          <div class="offcanvas-header border-bottom border-secondary">
+            <h2 class="offcanvas-title portfolio-brand fs-5 fw-semibold mb-0" id="portfolioSidebarLabel">Sections</h2>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="nav nav-pills flex-column gap-1 portfolio-offcanvas-nav" aria-label="On this page">
+              <a class="nav-link" href="#profile">Profile</a>
+              <a class="nav-link" href="#education">Education</a>
+              <a class="nav-link" href="#work">Work Experience</a>
+              <a class="nav-link" href="#projects">Projects</a>
+              <a class="nav-link" href="#other">Other Experiences</a>
+            </nav>
+            <div class="pt-3 mt-3 border-top border-secondary">
+              <div class="portfolio-roles rounded border border-light border-opacity-25 bg-black bg-opacity-25 p-2 mb-3" role="region" aria-labelledby="rolesHeadingMobile">
+                <div class="d-flex align-items-center gap-2 mb-2 pb-2 border-bottom border-light border-opacity-10" id="rolesHeadingMobile">
+                  <i class="fa-solid fa-briefcase text-white-50" aria-hidden="true"></i>
+                  <span class="small fw-semibold text-white mb-0">Open to roles</span>
+                </div>
+                <div class="d-grid gap-1">
+                  <span class="badge rounded-pill text-bg-secondary">Full-stack engineer</span>
+                  <span class="badge rounded-pill text-bg-secondary">Backend / platform engineer</span>
+                  <span class="badge rounded-pill text-bg-secondary">Java · Spring Boot developer</span>
+                  <span class="badge rounded-pill text-bg-secondary">Application developer</span>
+                </div>
+              </div>
+              <div class="small text-white-50 text-uppercase mb-2">Connect</div>
+              <div class="d-flex flex-column gap-1 small mb-2">
+                <a href="mailto:jsong421@gatech.edu" class="link-light" data-bs-dismiss="offcanvas"><i class="fa-solid fa-envelope me-2" aria-hidden="true"></i>Email</a>
+                <a href="tel:+14703508926" class="link-light"><i class="fa-solid fa-phone me-2" aria-hidden="true"></i>470-350-8926</a>
+                <a href="https://www.linkedin.com/in/jaehoon-song-847422233/" target="_blank" rel="noopener noreferrer" class="link-light"><i class="fa-brands fa-linkedin me-2" aria-hidden="true"></i>LinkedIn</a>
+                <a href="https://github.com/YundaeLeeSong" target="_blank" rel="noopener noreferrer" class="link-light fw-medium" title="YundaeLeeSong — primary profile"><i class="fa-brands fa-github me-2" aria-hidden="true"></i>YundaeLeeSong</a>
+                <a href="https://github.com/JaehoonSong12" target="_blank" rel="noopener noreferrer" class="link-light text-white-50"><i class="fa-brands fa-github me-2" aria-hidden="true"></i>JaehoonSong12</a>
+              </div>
+              <div class="small text-white-50 mb-2"><i class="fa-solid fa-location-dot me-2" aria-hidden="true"></i>Suwanee, GA</div>
+              <a href="https://yundaeleesong.github.io/references/cv-JaehoonSong.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light btn-sm w-100"><i class="fa-solid fa-file-pdf me-2" aria-hidden="true"></i>Download résumé</a>
+            </div>
+          </div>
+        </div>
+
+        <main class="col-lg-10">
 
       <!-- Profile Section -->
-      <div class="mb-5 shadow-sm">
-        <div class="bg-dark text-white px-4 py-3 fs-4 fw-semibold border-bottom border-4 border-primary rounded-top">
+      <div id="profile" class="card mb-4 shadow-sm border-primary border-top border-top-3">
+        <div class="card-header bg-dark text-white fs-5 fw-semibold sticky-top">
           Profile
         </div>
-        <div class="bg-white border border-top-0 p-4 p-md-5 rounded-bottom d-flex flex-column flex-md-row align-items-start gap-4">
-          <img src="img/jaehoonsong.jpg" alt="Jaehoon Song" class="rounded-circle shadow border border-3 border-white" style="width: 150px; height: 150px; object-fit: cover;" />
+        <div class="card-body p-4 p-md-5 d-flex flex-column flex-md-row align-items-start gap-4">
+          <img src="img/jaehoonsong.jpg" alt="Jaehoon Song" class="rounded-circle shadow-sm border border-3 border-white flex-shrink-0 mx-auto mx-md-0" width="150" height="150" style="object-fit: cover;" />
           <div class="text-center text-md-start flex-grow-1 w-100">
             <div class="border-bottom pb-4 mb-4">
               <h2 class="h3 fw-bold mb-3 text-primary">Jaehoon Song</h2>
@@ -83,11 +192,11 @@
               </div>
             </div>
 
-            <div class="fw-bold mb-2 fs-5 text-start">About Me</div>
-            <p class="text-secondary lh-lg mb-3 text-start">
+            <div class="fw-semibold mb-2 fs-5 text-start">About Me</div>
+            <p class="text-secondary lh-lg mb-3 text-start fs-6">
               I am a software engineer completing my B.S. in Computer Science at Georgia Tech, building on an A.A.S. in Computer Programming from Gwinnett Technical College. My background pairs rigorous coursework—algorithms, discrete math, and systems—with shipped software across desktop, web, and mobile. Through Revature's pre-employment program I completed 108 coding activities and fourteen (14) technical evaluations, building REST APIs in Java with Spring Boot and test-driven development. I contributed to a manufacturing execution system at SK C&amp;C USA used by 300+ operators. I authored capstone architecture and led the database workstream for a Grady Health System heart-care prototype with clinical partners, and I continue client-facing work on JS Law Group's emergency intake site and the AlphaVi trading framework. I am pursuing backend and platform roles where I can own reliable, data-driven services end to end.
             </p>
-            <p class="text-secondary lh-lg mb-0 text-start">
+            <p class="text-secondary lh-lg mb-0 text-start fs-6">
               I work primarily in Java, Python, and JavaScript, with Spring Boot, Javalin, FastAPI, and Flask for APIs and services, and SQL persistence through JDBC, Spring Data JPA, and Oracle. I automate builds and deployment with Git, Maven, GitHub Actions, and cloud hosting for production web applications. As a Georgia Tech PHYS 2211 and CS 2050 teaching assistant and a Columbia Academy lecturer, I have presented technical material to groups from 10 to 100+ students in labs, recitations, and tutoring. I collaborate in Agile teams, document architecture for stakeholders, and debug methodically under real constraints. I take ownership of problems, communicate clearly, and deliver secure, maintainable code.
             </p>
           </div>
@@ -95,11 +204,11 @@
       </div>
 
       <!-- Education Section -->
-      <div class="mb-5 shadow-sm">
-        <div class="bg-dark text-white px-4 py-3 fs-4 fw-semibold border-bottom border-4 border-primary rounded-top">
+      <div id="education" class="card mb-4 shadow-sm border-primary border-top border-top-3">
+        <div class="card-header bg-dark text-white fs-5 fw-semibold sticky-top">
           Education
         </div>
-        <div class="bg-white border border-top-0 p-4 p-md-5 rounded-bottom">
+        <div class="card-body p-4 p-md-5">
 
           <!-- Georgia Tech -->
           <div class="d-flex flex-column flex-lg-row align-items-start gap-4 mb-5 pb-4 border-bottom">
@@ -149,18 +258,18 @@
       </div>
 
       <!-- Work Experience Section -->
-      <div class="mb-5 shadow-sm">
-        <div class="bg-dark text-white px-4 py-3 fs-4 fw-semibold border-bottom border-4 border-primary rounded-top">
+      <div id="work" class="card mb-4 shadow-sm border-primary border-top border-top-3">
+        <div class="card-header bg-dark text-white fs-5 fw-semibold sticky-top">
           Work Experience
         </div>
-        <div class="bg-white border border-top-0 p-4 p-md-5 rounded-bottom">
+        <div class="card-body p-4 p-md-5">
           <div id="workExperienceCarousel" class="carousel slide carousel-dark resume-carousel" data-bs-ride="false" data-bs-interval="false" data-bs-touch="true">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#workExperienceCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Entry 1 of 2"></button>
               <button type="button" data-bs-target="#workExperienceCarousel" data-bs-slide-to="1" aria-label="Entry 2 of 2"></button>
             </div>
             <div class="carousel-inner">
-              <div class="carousel-item active">
+              <div class="carousel-item active border rounded-3 p-3 p-md-4 bg-white">
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
                     <h3 class="h3 fw-bold mb-1">
@@ -180,9 +289,9 @@
                 <ul class="lh-lg mb-4 text-secondary">
                   <li><span class="text-dark">Developed programming skills in Java, SQL, RESTful API construction, and Spring Framework.</span></li>
                   <li><span class="text-dark">Implemented project work including construction of functional REST APIs using Test Driven Development methodologies.</span></li>
+                  <li><span class="text-dark">Leveraged Java APIs to write algorithms to solve various challenges and problem sets in project work.</span></li>
                   <li><span class="text-dark">Completed 108 coding activities.</span></li>
                   <li><span class="text-dark">Showcased understanding of concepts through fourteen (14) evaluations.</span></li>
-                  <li><span class="text-dark">Leveraged Java APIs to write algorithms solving various challenges and problem sets.</span></li>
                 </ul>
 
                 <div class="fw-bold mt-4 mb-2 fs-5">Technologies</div>
@@ -196,7 +305,7 @@
                 <span class="link-secondary">Available upon request</span>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- SK C&C USA -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -215,8 +324,9 @@
                 <div class="fw-bold mt-4 mb-2 fs-5">Responsibilities</div>
 
                 <ul class="lh-lg mb-4 text-secondary">
-                  <li><span class="text-dark">Contributed to a manufacturing execution system (MES) for <a href="https://www.skbatteryamerica.com/" target="_blank" class="link-primary link-underline-opacity-0 link-underline-opacity-100-hover">SK Global Battery</a>, building operator-facing desktop applications and plant-system integrations.</span></li>
-                  <li><span class="text-dark">Maintained virtual machine environments and database operations to ensure data consistency across manufacturing systems.</span></li>
+                  <li><span class="text-dark">Contributed to a manufacturing execution system (MES) for <a href="https://www.skbatteryamerica.com/" target="_blank" class="link-primary link-underline-opacity-0 link-underline-opacity-100-hover">SK Global Battery</a>, supporting battery manufacturing operations on the factory floor.</span></li>
+                  <li><span class="text-dark">Implemented TCP/IP networking for PLC integration using SOAP for plant-equipment data exchange.</span></li>
+                  <li><span class="text-dark">Maintained VMware virtual machines and Oracle Database operations to ensure data consistency across factory plant systems.</span></li>
                   <li><span class="text-dark">Authored user documentation and operator guides for MES interfaces serving 300+ users.</span></li>
                 </ul>
 
@@ -244,11 +354,11 @@
       </div>
 
       <!-- Projects Section -->
-      <div class="shadow-sm">
-        <div class="bg-dark text-white px-4 py-3 fs-4 fw-semibold border-bottom border-4 border-primary rounded-top">
+      <div id="projects" class="card mb-4 shadow-sm border-primary border-top border-top-3">
+        <div class="card-header bg-dark text-white fs-5 fw-semibold sticky-top">
           Projects
         </div>
-        <div class="bg-white border border-top-0 p-4 p-md-5 rounded-bottom">
+        <div class="card-body p-4 p-md-5">
           <div id="projectsCarousel" class="carousel slide carousel-dark resume-carousel" data-bs-ride="false" data-bs-interval="false" data-bs-touch="true">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Entry 1 of 7"></button>
@@ -260,7 +370,7 @@
               <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="6" aria-label="Entry 7 of 7"></button>
             </div>
             <div class="carousel-inner">
-              <div class="carousel-item active">
+              <div class="carousel-item active border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Project: JS Law Group -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -300,7 +410,7 @@
                 </a>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Project: AlphaVi -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -322,8 +432,8 @@
                 <div class="fw-bold mt-4 mb-2 fs-5">Responsibilities</div>
                 <ul class="lh-lg mb-4 text-secondary">
                   <li><span class="text-dark">Refactored a solo trading-bot codebase into <i>AlphaVi</i> as reusable Python libraries and ran the framework end to end on a local workstation.</span></li>
-                  <li><span class="text-dark">Integrated Alpaca broker API, FTP, and market data feeds into one ingestion layer that normalizes account, position, and pricing signals.</span></li>
-                  <li><span class="text-dark">Built regression models on historical price and position data to rank long and short candidates and guide trade timing and sizing.</span></li>
+                  <li><span class="text-dark">Built a Python integration layer with <code>requests</code> that unifies Alpaca broker REST APIs, yfinance market data endpoints, and FTP-backed feeds into one normalized view of account, position, and pricing signals.</span></li>
+                  <li><span class="text-dark">Implemented a custom linear regression model and ranking system on historical price and position data to score long and short candidates and guide trade timing and sizing.</span></li>
                   <li><span class="text-dark">Built a scheduler-driven pipeline with timed jobs and accounting-based buy/sell rules from normalized account and market data.</span></li>
                 </ul>
 
@@ -338,7 +448,7 @@
                 </a>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Project 3: PEP RecipeHub -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -384,7 +494,7 @@
                 </a>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Project 2: PEP Spring -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -426,7 +536,7 @@
                 </a>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Project 1: PEP Javalin -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -466,7 +576,7 @@
                 </a>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Project: GYCO -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -475,7 +585,7 @@
                     </h3>
                   </div>
                   <div class="text-lg-end mt-2 mt-lg-0">
-                    <span class="fw-semibold text-secondary">April 2025 — Oct 2025</span>
+                    <span class="fw-semibold text-secondary">Apr 2025 — Oct 2025</span>
                   </div>
                 </div>
 
@@ -508,7 +618,7 @@
                 </a>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Project: Grady Health System -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -561,11 +671,11 @@
       </div>
 
       <!-- Other Experiences Section -->
-      <div class="mb-5 shadow-sm">
-        <div class="bg-dark text-white px-4 py-3 fs-4 fw-semibold border-bottom border-4 border-primary rounded-top">
+      <div id="other" class="card mb-4 shadow-sm border-primary border-top border-top-3">
+        <div class="card-header bg-dark text-white fs-5 fw-semibold sticky-top">
           Other Experiences
         </div>
-        <div class="bg-white border border-top-0 p-4 p-md-5 rounded-bottom">
+        <div class="card-body p-4 p-md-5">
           <div id="otherExperiencesCarousel" class="carousel slide carousel-dark resume-carousel" data-bs-ride="false" data-bs-interval="false" data-bs-touch="true">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#otherExperiencesCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Entry 1 of 3"></button>
@@ -573,7 +683,7 @@
               <button type="button" data-bs-target="#otherExperiencesCarousel" data-bs-slide-to="2" aria-label="Entry 3 of 3"></button>
             </div>
             <div class="carousel-inner">
-              <div class="carousel-item active">
+              <div class="carousel-item active border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Columbia Academy -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
@@ -613,12 +723,12 @@
                 </a>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Georgia Institute of Technology, School of Physics -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
                     <h3 class="h3 fw-bold mb-1">
-                      Georgia Institute of Technology, School of Physics
+                      Georgia Institute of Technology<br>School of Physics
                       <span class="fw-normal text-muted fs-5 ms-1">| Teaching Assistant (TA)</span>
                     </h3>
                     <div class="fw-medium text-primary">PHYS 2211</div>
@@ -650,13 +760,13 @@
                 </a>
               </div>
 
-              <div class="carousel-item">
+              <div class="carousel-item border rounded-3 p-3 p-md-4 bg-white">
                 <!-- Georgia Institute of Technology, School of Computer Science -->
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center border-bottom pb-3 mb-4">
                   <div>
                     <h3 class="h3 fw-bold mb-1">
-                      Georgia Tech, School of Computer Science
-                      <span class="fw-normal text-muted fs-5 ms-1">| Undergrad Teaching Assistant (UTA)</span>
+                      Georgia Institute of Technology<br>School of Computer Science
+                      <span class="fw-normal text-muted fs-5 ms-1">| UTA</span>
                     </h3>
                     <div class="fw-medium text-primary">CS 2050</div>
                   </div>
@@ -698,8 +808,53 @@
 
         </div>
       </div>
+
+        </main>
+
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      (function () {
+        const offcanvasEl = document.getElementById("portfolioSidebar");
+        if (!offcanvasEl) return;
+
+        const scrollToSection = (hash) => {
+          const target = document.querySelector(hash);
+          if (!target) return;
+          const offset = 56;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: "smooth" });
+          history.replaceState(null, "", hash);
+        };
+
+        offcanvasEl.querySelectorAll('a[href^="#"]').forEach((link) => {
+          link.addEventListener("click", (event) => {
+            const hash = link.getAttribute("href");
+            if (!hash || hash === "#") return;
+
+            event.preventDefault();
+            const instance =
+              bootstrap.Offcanvas.getInstance(offcanvasEl) || new bootstrap.Offcanvas(offcanvasEl);
+
+            if (!offcanvasEl.classList.contains("show")) {
+              scrollToSection(hash);
+              return;
+            }
+
+            offcanvasEl.addEventListener(
+              "hidden.bs.offcanvas",
+              () => {
+                // Run after Bootstrap returns focus to the menu button (avoids jump to top).
+                setTimeout(() => scrollToSection(hash), 50);
+              },
+              { once: true }
+            );
+            instance.hide();
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
