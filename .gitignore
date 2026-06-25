@@ -1,25 +1,54 @@
-# --- Generated from ./.gitignores on Thu May 28 21:22:36 2026 ---
+# --- Generated from ./.gitignores on Sun Jun 21 12:52:49 2026 ---
 
 #############################################
 # A.gitignore
 #############################################
+
+# Note: git check-ignore -v <ignored_file> can be used to debug which rule is ignoring a file
+
 #################### ALL PURPOSE GITIGNORE ####################
-.gemini/
 project2305*
-_*/
+_*
 tmp*/
 remote*/
 VSLive*/
 vscode*/
 pyright*/
-cursor*/
 python-lang*/
 *.key
 *.key.pub
-
 log*/
 playwright*/
 h2/
+
+################################################################
+# AI Model Specific Ignores
+################################################################ 
+# Gemini (Google's AI model)
+*[gG][eE][mM][iI][nN][iI]*
+# Cursor IDE
+*[cC][uU][rR][sS][oO][rR]*
+# Kiro (AI code assistant)
+*[kK][iI][rR][oO]*
+
+# for project specific specs
+!/.kiro/
+/.kiro/*
+!/.kiro/specs/
+!.config.kiro
+!/.kiro/steering/
+# CI/CD convention for personal configurations
+/.kiro/steering/plan-*
+/.kiro/steering/code-*
+/.kiro/steering/build-*
+/.kiro/steering/test-*
+/.kiro/steering/release-*
+/.kiro/steering/deploy-*
+/.kiro/steering/operate-*
+/.kiro/steering/monitor-*
+# Educational Purposed configurations
+/.kiro/steering/edu-*
+
 
 ################################################################
 # General Ignores (Large Media Files & Common File Types)
@@ -125,8 +154,8 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 
-# Other files and folders
-.settings/
+# # Other files and folders
+# .settings/
 
 # Executables
 *.swf
@@ -1746,8 +1775,8 @@ Debug/
 # IAR project "Release" directory
 Release/
 
-# IAR project settings directory
-settings/
+# # IAR project settings directory
+# settings/
 
 # IAR backup files
 Backup*
@@ -2650,7 +2679,7 @@ Reports/
 \.project
 \.settings/
 bin/lib/
-Libs/
+# Libs/
 .svn/
 .gradle
 
@@ -2827,7 +2856,7 @@ auth.json
 # pom.xml.asc
 # *.jar
 *.class
-/lib/
+# /lib/
 /classes/
 /target/
 /checkouts/
@@ -3589,7 +3618,7 @@ inc/
 bin/
 /db
 .eclipse
-/lib/
+# /lib/
 /logs/
 /modules
 /project/project
@@ -3847,7 +3876,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/
 lib64/
 parts/
 sdist/
@@ -3931,14 +3960,14 @@ ipython_config.py
 #   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
-# uv.lock
+uv.lock
 
 # poetry
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
 #   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
-# poetry.lock
+poetry.lock
 # poetry.toml
 
 # pdm
@@ -4096,7 +4125,7 @@ ui_*.h
 *.qmlc
 *.jsc
 Makefile*
-*build-*
+# *build-*
 *.qm
 *.prl
 
@@ -4181,7 +4210,7 @@ devel/
 logs/
 build/
 bin/
-lib/
+# lib/
 msg_gen/
 srv_gen/
 msg/*Action.msg
@@ -4328,7 +4357,7 @@ lib/.precomp
 # ReScript.gitignore
 #############################################
 /node_modules/
-/lib/
+# /lib/
 .bsb.lock
 
 #############################################
@@ -6097,7 +6126,7 @@ wp-config.php
 #############################################
 # Xojo (formerly REALbasic and Real Studio)
 
-Builds*
+# Builds*
 *.debug
 *.debug.app
 Debug*.exe
